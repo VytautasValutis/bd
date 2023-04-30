@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('htpivots', function (Blueprint $table) {
+        Schema::create('ht_pivots', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('histories__id')->references('_id')->on('histories');
+            $table->unsignedBigInteger('hts__id')->references('_id')->on('hts');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('htpivots');
+        Schema::dropIfExists('ht_pivots');
     }
 };

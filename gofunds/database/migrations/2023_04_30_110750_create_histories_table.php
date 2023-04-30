@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('story' , 500);
             $table->decimal('need_money' , 9, 2);
             $table->decimal('is_money' , 9, 2);
-            $table->unsignedTinyInteger('appruved');
+            $table->unsignedTinyInteger('approved');
         });
     }
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Htpivot;
-use App\Http\Requests\StoreHtpivotRequest;
-use App\Http\Requests\UpdateHtpivotRequest;
+use App\Models\Ht_pivot;
+use App\Http\Requests\StoreHt_pivotRequest;
+use App\Http\Requests\UpdateHt_pivotRequest;
 
-class HtpivotController extends Controller
+class HtPivotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class HtpivotController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreHtpivotRequest $request)
+    public function store(StoreHt_pivotRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class HtpivotController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Htpivot $htpivot)
+    public function show(Ht_pivot $ht_pivot)
     {
         //
     }
@@ -43,7 +43,7 @@ class HtpivotController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Htpivot $htpivot)
+    public function edit(Ht_pivot $ht_pivot)
     {
         //
     }
@@ -51,7 +51,7 @@ class HtpivotController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateHtpivotRequest $request, Htpivot $htpivot)
+    public function update(UpdateHt_pivotRequest $request, Ht_pivot $ht_pivot)
     {
         //
     }
@@ -59,7 +59,7 @@ class HtpivotController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Htpivot $htpivot)
+    public function destroy(Ht_pivot $ht_pivot)
     {
         //
     }

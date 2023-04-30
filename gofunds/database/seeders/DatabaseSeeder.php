@@ -21,23 +21,23 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
         foreach(range(1,20) as $_){
-            DB::table('ht')->insert([
-                'ht' => $fake->word,
+            DB::table('hts')->insert([
+                'text' => $faker->word,
             ]);
         }
         foreach(range(1, 10) as $k => $_){
             DB::table('users')->insert([
                 'name' => $faker->firstName,
-                'email' => $faker->firsName . '@gmail.com',
+                'email' => $faker->firstName . '@gmail.com',
                 'role' => 10,
                 'password' => Hash::make('123'),
             ]);
             DB::table('histories')->insert([
-                'user_id' => $k;
+                'user_id' => $k + 1,
                 'story' => $faker->text(150),
-                'need_money' => 0,
+                'need_money' => rand(100000, 5000000) / 100,
                 'is_money' => 0,
-                'approved'
+                'approved' => 0
             ]);
         }
 
