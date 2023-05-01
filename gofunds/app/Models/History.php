@@ -9,7 +9,7 @@ class History extends Model
 {
     use HasFactory;
 
-    public $table = 'table_history';
+    public $table = 'histories';
     public $incrementing = false;
     public $keyType = 'unsignedBigInteger';
     protected $primaryKey = '_id';

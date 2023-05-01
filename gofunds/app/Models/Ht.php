@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ht extends Model
 {
     use HasFactory;
-    public $table = 'ht_history';
+    public $table = 'hts';
     public $incrementing = false;
     public $keyType = 'unsignedBigInteger';
     protected $primaryKey = '_id';
