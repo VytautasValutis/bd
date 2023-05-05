@@ -10,8 +10,7 @@ use Faker\Factory as Faker;
 use App\Models\History;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
+use File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -50,11 +49,11 @@ class DatabaseSeeder extends Seeder
             'zcXe8Kq6i.jpg'
         ];
         foreach(range(1, 10) as $t){
-            $url = Storage::url($mainPhotoName[$t - 1]);
-            // $path = public_path() . '/history-photo/' . $mainPhotoName[$t - 1];
-            $path = '/public/history-photo/' . $mainPhotoName[$t - 1];
-            Storage::copy($url, $path);
-            dd($url, $path);
+            $phName = $mainPhotoName[$t - 1];
+            $url = 'C:\xampp\htdocs\bd\gofunds\storage/app/public/' . $phName;
+            $phName = rand(1000000, 9999999) .'-' . $phName;
+            $path = public_path('/history-photo/' . $phName);
+            File::copy($url, $path);
             DB::table('users')->insert([
                 'name' => $faker->firstName,
                 'email' => $faker->firstName . '@gmail.com',
@@ -72,6 +71,7 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $t,
                 'story' => $faker->text(150),
                 'need_money' => rand(100000, 5000000) / 100,
+                'photo' => $phName,
                 'approved' => $tmp_num,
             ]);
 
@@ -90,6 +90,28 @@ class DatabaseSeeder extends Seeder
                     'hts__id' => $tagArr[$k - 1],
                 ]);
             }
+            $key_prob = rand(1, 100);
+            $gal_count = match(true) {
+                $key_prob <= 10 => 0,
+                $key_prob <= 40 => 3,
+                $key_prob <= 80 => 4,
+                default => 5,
+            };
+            if($gal_count > 0) {
+                foreach(range(1, $gal_count) as $g) {
+                    $galArr = self::putRandArr(10, 59, $gal_count);
+                    $phName = $galArr[$g - 1] . '.jpg';
+                    $url = 'V:\BIT\Uzduotys\BD\gallery/' . $phName;
+                    $phName = rand(1000000, 9999999) .'-' . $phName;
+                    $path = public_path('/history-photo/' . $phName);
+                    File::copy($url, $path);
+                    DB::table('photos')->insert([
+                        'hist_id' => $t,
+                        'photo' => $phName
+                    ]);
+                }
+            }
+
         }
         foreach(range(1, 10) as $t){
             DB::table('users')->insert([
