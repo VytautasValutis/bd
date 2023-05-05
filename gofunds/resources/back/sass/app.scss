@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'bootstrap/scss/bootstrap';
+
+.ht-line {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    .ht-element {
+        display: flex;
+        justify-content: space-around;
+    }
+}

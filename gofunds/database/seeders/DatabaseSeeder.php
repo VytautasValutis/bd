@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
 use App\Models\History;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,7 +36,28 @@ class DatabaseSeeder extends Seeder
                 'text' => $faker->word,
             ]);
         }
+        $mainPhotoName = [
+            '6BigqbBc8.png',
+            '6TyXRqA7c.png',
+            'ATbjMxryc.png',
+            '8TEoGXzTa.png',
+            'BTarex9T8.jpg',
+            'Lid5X67i4.png',
+            'pc78BGazi.png',
+            'pc78y5Gqi.jpg',
+            'rinGnEyrT.png',
+            'zcXe8Kq6i.jpg'
+        ];
+
+        $path = public_path('/history-photo/');
+        $img = Image::make('V:\BIT\Uzduotys\BD\gallery/no_photo.jpg')->heighten(100);
+        $img->save($path . 't_no_photo.jpg', 90);
+
         foreach(range(1, 10) as $t){
+            $phName = $mainPhotoName[$t - 1];
+            $url = 'C:\xampp\htdocs\bd\gofunds\storage/app/public/' . $phName;
+            $phName = rand(1000000, 9999999) .'-' . $phName;
+            File::copy($url, $path . $phName);
             DB::table('users')->insert([
                 'name' => $faker->firstName,
                 'email' => $faker->firstName . '@gmail.com',
@@ -47,10 +71,14 @@ class DatabaseSeeder extends Seeder
                 default => 1,
             };
 
+            $img = Image::make($path . $phName)->heighten(100);
+            $img->save($path . 't_' . $phName, 90);
+
             DB::table('histories')->insert([
                 'user_id' => $t,
-                'story' => $faker->text(150),
+                'story' => $faker->text(800),
                 'need_money' => rand(100000, 5000000) / 100,
+                'photo' => $phName,
                 'approved' => $tmp_num,
             ]);
 
@@ -69,6 +97,29 @@ class DatabaseSeeder extends Seeder
                     'hts__id' => $tagArr[$k - 1],
                 ]);
             }
+            $key_prob = rand(1, 100);
+            $gal_count = match(true) {
+                $key_prob <= 10 => 0,
+                $key_prob <= 40 => 3,
+                $key_prob <= 80 => 4,
+                default => 5,
+            };
+            // Image::configure(['driver' => 'imagick']);
+            if($gal_count > 0) {
+                foreach(range(1, $gal_count) as $g) {
+                    $galArr = self::putRandArr(10, 59, $gal_count);
+                    $phName = $galArr[$g - 1] . '.jpg';
+                    $url = 'V:\BIT\Uzduotys\BD\gallery/' . $phName;
+                    $phName = rand(1000000, 9999999) .'-' . $phName;
+                    $path = public_path('/history-photo/');
+                    File::copy($url, $path . $phName);
+                    DB::table('photos')->insert([
+                        'hist_id' => $t,
+                        'photo' => $phName
+                    ]);
+                }
+            }
+
         }
         foreach(range(1, 10) as $t){
             DB::table('users')->insert([
