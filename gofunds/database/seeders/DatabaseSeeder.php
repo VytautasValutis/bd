@@ -48,12 +48,16 @@ class DatabaseSeeder extends Seeder
             'rinGnEyrT.png',
             'zcXe8Kq6i.jpg'
         ];
+
+        $path = public_path('/history-photo/');
+        $img = Image::make('V:\BIT\Uzduotys\BD\gallery/no_photo.jpg')->heighten(100);
+        $img->save($path . 't_no_photo.jpg', 90);
+
         foreach(range(1, 10) as $t){
             $phName = $mainPhotoName[$t - 1];
             $url = 'C:\xampp\htdocs\bd\gofunds\storage/app/public/' . $phName;
             $phName = rand(1000000, 9999999) .'-' . $phName;
-            $path = public_path('/history-photo/' . $phName);
-            File::copy($url, $path);
+            File::copy($url, $path . $phName);
             DB::table('users')->insert([
                 'name' => $faker->firstName,
                 'email' => $faker->firstName . '@gmail.com',
@@ -66,6 +70,9 @@ class DatabaseSeeder extends Seeder
                 $key_prob <= 20 => 0,
                 default => 1,
             };
+
+            $img = Image::make($path . $phName)->heighten(100);
+            $img->save($path . 't_' . $phName, 90);
 
             DB::table('histories')->insert([
                 'user_id' => $t,
@@ -106,8 +113,6 @@ class DatabaseSeeder extends Seeder
                     $phName = rand(1000000, 9999999) .'-' . $phName;
                     $path = public_path('/history-photo/');
                     File::copy($url, $path . $phName);
-                    $img = Image::make($path . $phName)->heighten(300);
-                    $img->save($path . 't_' . $phName, 90);
                     DB::table('photos')->insert([
                         'hist_id' => $t,
                         'photo' => $phName

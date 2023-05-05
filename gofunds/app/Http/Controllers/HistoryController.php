@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\User;
+use App\Models\Money;
 use App\Http\Requests\StoreHistoryRequest;
 use App\Http\Requests\UpdateHistoryRequest;
 
@@ -15,9 +17,13 @@ class HistoryController extends Controller
     {
         $histories = History::orderBy('id');
         $histories = $histories->paginate(4)->withQueryString();
+        $users = User::all();
+        $moneys = Money::all();
 
         return view('back.history.index', [
-            'histories' => $histories
+            'histories' => $histories,
+            'users' => $users,
+            'moneys' => $moneys,
         ]);
     }
 
