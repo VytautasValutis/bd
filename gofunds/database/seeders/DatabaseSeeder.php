@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
 use App\Models\History;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,7 +37,24 @@ class DatabaseSeeder extends Seeder
                 'text' => $faker->word,
             ]);
         }
+        $mainPhotoName = [
+            '6BigqbBc8.png',
+            '6TyXRqA7c.png',
+            'ATbjMxryc.png',
+            '8TEoGXzTa.png',
+            'BTarex9T8.jpg',
+            'Lid5X67i4.png',
+            'pc78BGazi.png',
+            'pc78y5Gqi.jpg',
+            'rinGnEyrT.png',
+            'zcXe8Kq6i.jpg'
+        ];
         foreach(range(1, 10) as $t){
+            $url = Storage::url($mainPhotoName[$t - 1]);
+            // $path = public_path() . '/history-photo/' . $mainPhotoName[$t - 1];
+            $path = '/public/history-photo/' . $mainPhotoName[$t - 1];
+            Storage::copy($url, $path);
+            dd($url, $path);
             DB::table('users')->insert([
                 'name' => $faker->firstName,
                 'email' => $faker->firstName . '@gmail.com',

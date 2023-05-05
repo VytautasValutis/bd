@@ -13,7 +13,10 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        $histories = History::all();
+        return view('back.history.index', [
+            'histories' => $histories
+        ]);
     }
 
     /**
