@@ -28,7 +28,7 @@
                         </div>
                     </td>
                     <td>
-                        <div>{{$h->need_money}}
+                        <div>&#x20AC; {{number_format($h->need_money, 2, '.', ' ')}}
                         </div>
                     </td>
                     <td><b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
@@ -55,12 +55,12 @@
                     </td>
                 </tr>
                 @empty
-                <th>No clients</th>
+                <th>No histories</th>
                 @endforelse
             </tbody>
         </table>
         <div class="m-2">
-            {{ $clients->links() }}
+            {{ $histories->links() }}
         </div>
 
     </div>

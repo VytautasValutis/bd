@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
 
             DB::table('histories')->insert([
                 'user_id' => $t,
-                'story' => $faker->text(150),
+                'story' => $faker->text(800),
                 'need_money' => rand(100000, 5000000) / 100,
                 'photo' => $phName,
                 'approved' => $tmp_num,
@@ -97,14 +97,17 @@ class DatabaseSeeder extends Seeder
                 $key_prob <= 80 => 4,
                 default => 5,
             };
+            // Image::configure(['driver' => 'imagick']);
             if($gal_count > 0) {
                 foreach(range(1, $gal_count) as $g) {
                     $galArr = self::putRandArr(10, 59, $gal_count);
                     $phName = $galArr[$g - 1] . '.jpg';
                     $url = 'V:\BIT\Uzduotys\BD\gallery/' . $phName;
                     $phName = rand(1000000, 9999999) .'-' . $phName;
-                    $path = public_path('/history-photo/' . $phName);
-                    File::copy($url, $path);
+                    $path = public_path('/history-photo/');
+                    File::copy($url, $path . $phName);
+                    $img = Image::make($path . $phName)->heighten(300);
+                    $img->save($path . 't_' . $phName, 90);
                     DB::table('photos')->insert([
                         'hist_id' => $t,
                         'photo' => $phName

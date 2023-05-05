@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
-            $table->string('story' , 500);
+            $table->string('story' , 5000);
             $table->decimal('need_money' , 9, 2);
             $table->string('photo', 200)->nullable()->default(null);
             $table->unsignedTinyInteger('approved');

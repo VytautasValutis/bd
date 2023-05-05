@@ -13,7 +13,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $histories = History::all();
+        $histories = History::orderBy('id');
+        $histories = $histories->paginate(4)->withQueryString();
+
         return view('back.history.index', [
             'histories' => $histories
         ]);
