@@ -1,12 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Entities;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class AiController extends Controller
+// class AiController extends Controller
+class AiController
 {
+
+    public function __construct($prompt, $max_tokens) 
+    {
+        $this->prompt = $prompt;
+        $this->max_tokens = $max_tokens;
+        
+    }
+
     public function sendRequest() {
         $client = new Client();
         $response = $client->post('https://api.openai.com/v1/completions', [
@@ -15,8 +23,8 @@ class AiController extends Controller
                 'Authorization' => 'Bearer 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',
             ],
             'json' => [
-                'prompt' => 'short story up to 20 words about grizzly',
-                'max_tokens' => 20,
+                'prompt' => $this->prompt,
+                'max_tokens' => $this->max_tokens,
                 'model' => 'text-davinci-003',
             ],
         ]);
