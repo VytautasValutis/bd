@@ -4,7 +4,6 @@ namespace App\Entities;
 
 use GuzzleHttp\Client;
 
-// class AiController extends Controller
 class AiController
 {
 
