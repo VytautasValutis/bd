@@ -11,6 +11,8 @@ use App\Models\History;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Entities\AiController;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,9 +33,32 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
         
-        foreach(range(1,20) as $_){
+        $h_tags = [
+            'doctor',
+            'cat',
+            'home',
+            'blue',
+            'car',
+            'table',
+            'puppy',
+            'dog',
+            'sun',
+            'sea',
+            'road',
+            'tree',
+            'child',
+            'fire',
+            'cemetery',
+            'meadow',
+            'programmer',
+            'elk',
+            'mushroom',
+            'penguin'
+        ];
+
+        foreach(range(0,19) as $k){
             DB::table('hts')->insert([
-                'text' => $faker->word,
+                'text' => $h_tags[$k],
             ]);
         }
         $mainPhotoName = [
@@ -52,7 +77,6 @@ class DatabaseSeeder extends Seeder
         $path = public_path('/history-photo/');
         $img = Image::make('V:\BIT\Uzduotys\BD\gallery/no_photo.jpg')->heighten(100);
         $img->save($path . 't_no_photo.jpg', 90);
-
         foreach(range(1, 10) as $t){
             $phName = $mainPhotoName[$t - 1];
             $url = 'C:\xampp\htdocs\bd\gofunds\storage/app/public/' . $phName;
@@ -74,14 +98,6 @@ class DatabaseSeeder extends Seeder
             $img = Image::make($path . $phName)->heighten(100);
             $img->save($path . 't_' . $phName, 90);
 
-            DB::table('histories')->insert([
-                'user_id' => $t,
-                'story' => $faker->text(800),
-                'need_money' => rand(100000, 5000000) / 100,
-                'photo' => $phName,
-                'approved' => $tmp_num,
-            ]);
-
             $key_prob = rand(1, 100);
             $tag_count = match(true) {
                 $key_prob <= 10 => 2,
@@ -91,12 +107,28 @@ class DatabaseSeeder extends Seeder
                 default => 6,
             };
             $tagArr = self::putRandArr(1, 20, $tag_count);
+            $tags_str = ' ';
             foreach(range(1, $tag_count) as $k) {
                 DB::table('ht_pivots')->insert([
                     'histories__id' => $t,
                     'hts__id' => $tagArr[$k - 1],
                 ]);
+                $txt = DB::table('hts')->where('id', $tagArr[$k - 1])->get()->first()->text;
+                $tags_str = $tags_str . $txt . ' ';
             }
+
+            $prompt = 'a sad story in up to one hundred and ten words using words:' . $tags_str;
+            $max_tokens = 140; 
+            $Ai_req = new AiController($prompt, $max_tokens);
+            $story = $Ai_req->sendRequest();
+            DB::table('histories')->insert([
+                'user_id' => $t,
+                'story' => $story,
+                'need_money' => rand(100000, 5000000) / 100,
+                'photo' => $phName,
+                'approved' => $tmp_num,
+            ]);
+
             $key_prob = rand(1, 100);
             $gal_count = match(true) {
                 $key_prob <= 10 => 0,

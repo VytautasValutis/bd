@@ -11,3 +11,42 @@
         justify-content: space-around;
     }
 }
+.gallery {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .photo {
+        display: flex;
+        justify-content: space-around;
+        gap: 10px;
+        align-items: baseline;
+    }
+}
+
+.img-wrapper {
+    position: relative;
+    height: auto;
+    width: 130px;
+
+  }
+  
+  .img-responsive {
+    width: 150px;
+    height: auto;
+  }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  
+  .img-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 50%;
+  }

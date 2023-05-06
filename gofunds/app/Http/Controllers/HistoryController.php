@@ -8,6 +8,7 @@ use App\Models\Money;
 use App\Models\Like;
 use App\Models\Ht_pivot;
 use App\Models\Ht;
+use App\Models\Photo;
 use App\Http\Requests\StoreHistoryRequest;
 use App\Http\Requests\UpdateHistoryRequest;
 
@@ -27,6 +28,7 @@ class HistoryController extends Controller
         $ht_pivots = $ht_pivots->get();
         $hts = Ht::orderBy('text');
         $hts = $hts->get();
+        $gallery = Photo::all(); 
 
         return view('back.history.index', [
             'histories' => $histories,
@@ -35,6 +37,7 @@ class HistoryController extends Controller
             'likes' => $likes,
             'ht_pivots' => $ht_pivots,
             'hts' => $hts,
+            'gallery' => $gallery,
         ]);
     }
 
