@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-11">
         <table class="table table-borderless">
             <thead>
                 <tr>
@@ -39,19 +39,27 @@
                                     <img src="{{asset('history-photo') .'/no.jpg'}}">
                                     @endif
                                 </div>
-                                @foreach($gallery as $g)
+                                @foreach($gallery as $k => $g)
                                 @if($g->hist_id == $h->id)
-                                <div>
-                                    <img src="{{asset('history-photo') .'/'. $g->photo}}">
+                                <button type="button" class="btn btn-md btn-overlay-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$k}}">
+                                    <img class="img-responsive" src="{{asset('history-photo') .'/'. $g->photo}}">
+                                </button>
+                                <div class="modal fade" id="exampleModal{{$k}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn btn-md btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img class="img-responsive" src="{{asset('history-photo') .'/'. $g->photo}}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 @endif
                                 @endforeach
                             </div>
                         </div>
-                    </td>
-
-                    <td>
-                        <a href="" class="btn btn-outline-success">Approve</a>
                     </td>
                     <td>
                         <form action="" method="post">
@@ -60,6 +68,11 @@
                             @method('delete')
                         </form>
                     </td>
+                    @if(!$h->approved)
+                    <td>
+                        <a href="" class="btn btn-outline-success">Approve</a>
+                    </td>
+                    @endif
                 </tr>
                 <tr>
                     <td></td>
@@ -96,10 +109,6 @@
                         </div>
                     </td>
                     <td></td>
-                    <td>
-                        <div>{{$h->approved}}
-                        </div>
-                    </td>
 
                 </tr>
                 @empty
