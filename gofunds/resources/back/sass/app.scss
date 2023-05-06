@@ -34,7 +34,15 @@
     width: 150px;
     height: auto;
   }
-  
+  .modal-body {
+        text-align: center;
+        .img-responsive {
+            width: auto;
+    }
+  }
+  .modal-content {
+    width: 800px;
+  }
   .img-overlay {
     position: absolute;
     top: 0;
@@ -48,5 +56,5 @@
     content: ' ';
     display: block;
     /* adjust 'height' to position overlay content vertically */
-    height: 50%;
+    height: 100%;
   }

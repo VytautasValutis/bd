@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/ai-route', 'App\Http\Controllers\AiController@sendRequest');
+// Route::get('/ai-route', 'App\Http\Controllers\AiController@sendRequest');
 
 Route::prefix('history')->name('history-')->group(function() {
     Route::get('/', [HI::class, 'index'])->name('index');
