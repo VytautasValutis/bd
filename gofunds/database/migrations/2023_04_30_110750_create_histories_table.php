@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('story' , 5000);
             $table->decimal('need_money' , 9, 2);
+            $table->integer('like')->default(0);
             $table->string('photo', 200)->nullable()->default(null);
             $table->unsignedTinyInteger('approved');
         });
