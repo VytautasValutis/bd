@@ -21,11 +21,11 @@ class HistoryController extends Controller
         $htf = $request->hash_tags ?? 0;
         if($htf > 0) {
             $ht_pivots = Ht_pivot::where('hts__id', $htf)->get();
-            $hist_arr = array_map(fn($h) => $h, $ht_pivots->histories__id);
-            dd($hist_arr, $htf);
-            $histories = History::where('id', $htf);
+            $hist_arr = $ht_pivots->pluck('histories__id')->all();
+            $histories = History::whereIn('id', $hist_arr);
+        } else {
+            $histories = History::orderBy('id');
         }
-        $histories = History::orderBy('id');
         // $histories = $histories->orderBy('id');
         $histories = $histories->paginate(3)->withQueryString();
         $users = User::all();
@@ -45,6 +45,7 @@ class HistoryController extends Controller
             'ht_pivots' => $ht_pivots,
             'hts' => $hts,
             'gallery' => $gallery,
+            'htf' => $htf,
         ]);
     }
 

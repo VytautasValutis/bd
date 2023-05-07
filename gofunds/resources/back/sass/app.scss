@@ -18,7 +18,7 @@
     .photo {
         display: flex;
         justify-content: space-around;
-        gap: 10px;
+        gap: 3px;
         align-items: baseline;
     }
 }
@@ -31,7 +31,7 @@
   }
   
   .img-responsive {
-    width: 150px;
+    width: 100px;
     height: auto;
   }
   .modal-body {

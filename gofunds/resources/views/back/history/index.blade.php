@@ -7,8 +7,8 @@
             <thead>
                 <tr>
                     <th scope="col">Author</th>
-                    <th scope="col" class="w-25">Story</th>
-                    <th scope="col" class="w-50">Main picture nad gallery up to five photo</th>
+                    <th scope="col" class="w-50">Story</th>
+                    <th scope="col" class="w-25">Main picture nad gallery up to five photo</th>
                     <th scope="col">Need money</th>
                     <th scope="col">Likes</th>
                     <th scope="col">Have money</th>
@@ -41,7 +41,7 @@
                                 </div>
                                 @foreach($gallery as $k => $g)
                                 @if($g->hist_id == $h->id)
-                                <button type="button" class="btn btn-md btn-overlay-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$k}}">
+                                <button type="button" class="btn btn-overlay-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$k}}">
                                     <img class="img-responsive" src="{{asset('history-photo') .'/'. $g->photo}}">
                                 </button>
                                 <div class="modal fade" id="exampleModal{{$k}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,9 +82,15 @@
                                 @foreach($hts as $htg)
                                 @foreach($ht_pivots as $ht)
                                 @if($ht->histories__id == $h->id && $htg->id == $ht->hts__id)
+                                @if($htf == $htg->id)
+                                <div class="btn btn-success ms-2">
+                                    {{$htg->text}}
+                                </div>
+                                @else
                                 <div class="btn btn-outline-success ms-2">
                                     {{$htg->text}}
                                 </div>
+                                @endif
                                 @endif
                                 @endforeach
                                 @endforeach
