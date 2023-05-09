@@ -36,6 +36,7 @@
                                 <div class="container">
                                     <div class="row justify-content-left">
                                         <div class="col-8 m-1">
+                                        @if(isset($hts))
                                             <select class="form-select" name="hash_tags">
                                                 <option value="0" selected>Hash-tag select</option>
                                                 @foreach($hts as $k => $ht)
@@ -46,6 +47,7 @@
                                         <div class="col-3 m-1">
                                             <button type="submit" class="btn btn-outline-primary">Filter</button>
                                         </div>
+                                        @endif    
                                     </div>
                                 </div>
                             </form>

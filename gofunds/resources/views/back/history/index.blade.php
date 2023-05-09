@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($histories as $h)
+                @forelse($histories as $i => $h)
                 <tr>
                     <td>
                         @foreach($users as $u)
@@ -101,40 +101,10 @@
                     <td>
                         <div class="button-line">
                             <div class="buttons">
-                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#donate">
-                                    Donate history
-                                </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="donate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Donate list</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                @foreach($moneys as $mn)
-                                                @if($mn->history_id == $h->id)
-                                                <div>
-                                                @foreach($users as $us)
-                                                @if($us->id == $mn->user_id && )
-                                                {{$us->name}}
-                                                {{-- {{$mn->user_id}} --}}
-                                                @endif
-                                                @endforeach
-                                                </div>
-                                                <div>
-                                                    &#x20AC; {{number_format($mn->money, 2, '.', ' ')}}
-                                                </div>
-                                                @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="" class="btn btn-outline-primary">Add donate</a>
-                                <a href="" class="btn btn-outline-primary">Like</a>
+                                @include('front.donateHistory')
                             </div>
+                            @include('front.donate')
+                            <a href="" class="btn btn-outline-primary">Like</a>
                         </div>
                     </td>
                     <td>
@@ -154,7 +124,12 @@
                         </div>
                     </td>
                     <td></td>
-
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div class="line">
+                        </div>
+                    </td>
                 </tr>
                 @empty
                 <th>No histories</th>

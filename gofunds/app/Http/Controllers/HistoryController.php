@@ -18,6 +18,13 @@ class HistoryController extends Controller
      */
     public function index(Request $request)
     {
+        if (!$request->user()) {
+            $showDonate = false;
+        } else {
+            $showDonate = true;
+            // $rates = collect($p->rates);
+            // $showVoteButton = $rates->first(fn($r) => $r['userId'] == $request->user()->id) ? false : true;
+        }
         $htf = $request->hash_tags ?? 0;
         if($htf > 0) {
             $ht_pivots = Ht_pivot::where('hts__id', $htf)->get();
@@ -46,6 +53,7 @@ class HistoryController extends Controller
             'hts' => $hts,
             'gallery' => $gallery,
             'htf' => $htf,
+            'showDonate' => $showDonate,
         ]);
     }
 

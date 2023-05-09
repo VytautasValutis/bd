@@ -16,7 +16,8 @@ use App\Http\Controllers\HistoryController as HI;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('back.history.index');
+    return redirect()->route('history-index');
 });
 
 Auth::routes();
