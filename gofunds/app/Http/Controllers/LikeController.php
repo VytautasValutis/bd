@@ -3,62 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
-use App\Http\Requests\StoreLikeRequest;
-use App\Http\Requests\UpdateLikeRequest;
+use Illuminate\Http\Request;
+use App\Models\History;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
+    {
+        $hist = History::where('id', $request->hist_id)->first();
+        $like_count = (int) $hist->like;
+        $like_count++;
+
+        // $hist->like = $like_count;
+        // $hist->save();
+        $hist->update([
+            'like' => $like_count,
+        ]);
+
+        Like::create([
+            'user_id' => $request->user_id,
+            'history_id' => $request->hist_id,
+        ]);
+
+        return redirect()->back();
+
+    }
+
+    public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreLikeRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Like $like)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Like $like)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLikeRequest $request, Like $like)
+    public function update(Request $request, Like $like)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Like $like)
     {
         //

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistoryController as HI;
 use App\Http\Controllers\MoneyController as MO;
+use App\Http\Controllers\LikeController as LK;
 
 
 /*
@@ -37,7 +38,16 @@ Route::prefix('history')->name('history-')->group(function() {
 });
 
 Route::prefix('money')->name('money-')->group(function() {
-    Route::put('/create/{history}', [MO::class, 'create'])->name('create');
+    Route::post('/create', [MO::class, 'create'])->name('create');
+    // Route::get('/create', [HI::class, 'create'])->name('create');
+    // Route::post('/create', [HI::class, 'store'])->name('store');    
+    // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');
+    // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
+    // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('like')->name('like-')->group(function() {
+    Route::post('/create', [LK::class, 'create'])->name('create');
     // Route::get('/create', [HI::class, 'create'])->name('create');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');

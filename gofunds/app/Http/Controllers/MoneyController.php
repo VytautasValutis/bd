@@ -13,9 +13,15 @@ class MoneyController extends Controller
         //
     }
 
-    public function create(Request $request, History $history)
+    public function create(Request $request)
     {
-        dd($request->value, $request->user_id, $history->id);
+        Money::create([
+            'user_id' => $request->user_id,
+            'history_id' => $request->hist_id,
+            'money' => $request->value,
+        ]);
+
+        return redirect()->back();
     }
 
     public function store(Request $request)
