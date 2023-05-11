@@ -17,6 +17,7 @@
             </thead>
             <tbody>
                 @forelse($histories as $i => $hist)
+                    @if($hist->approved || $user_status->role <= 5)
                     <tr>
                         <td>
                             @foreach($users as $u)
@@ -133,6 +134,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endif
                 @empty
                 <th>No histories</th>
                 @endforelse
