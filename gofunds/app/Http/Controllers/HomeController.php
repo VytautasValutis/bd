@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ht;
 
 class HomeController extends Controller
 {
@@ -13,9 +14,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -23,10 +23,15 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        // return view('home');
+        // return view('history-index');
+        $hts = Ht::orderBy('text');
+        $hts = $hts->get();
+        
         if ($request->user()->role > 5) {
-            return redirect()->route('front-index');
+            return redirect()->route('history-index');
         }
-        return redirect()->route('history-index');
+        return redirect()->route('history-index', [
+            'hts' => $hts,
+        ]);
     }
 }

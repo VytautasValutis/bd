@@ -117,8 +117,8 @@ class DatabaseSeeder extends Seeder
                 $tags_str = $tags_str . $txt . ' ';
             }
 
-            $prompt = 'a sad story in up to one hundred and ten words using words:' . $tags_str;
-            $max_tokens = 140; 
+            $prompt = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:' . $tags_str;
+            $max_tokens = 200; 
             $Ai_req = new AiController($prompt, $max_tokens);
             $story = $Ai_req->sendRequest();
             DB::table('histories')->insert([
@@ -189,7 +189,7 @@ class DatabaseSeeder extends Seeder
                 $money_max = (int) $history->need_money * 100 / 5;
                 foreach(range(1, $money_count) as $_) {
                     DB::table('money')->insert([
-                        'user_id' => rand(1,40),
+                        'user_id' => rand(1,20),
                         'history_id' => $history->id,
                         'money' => rand($money_min, $money_max) / 100,
                     ]);
@@ -202,6 +202,9 @@ class DatabaseSeeder extends Seeder
                 $key_prob <= 80 => 3,
                 default => 4,
             };
+            DB::table('histories')->where('id', $history->id)->update([
+                'like' => $like_count,
+            ]);
             $likeArr = self::putRandArr(1, 20, $like_count);
             foreach(range(1, $like_count) as $k) {
                 // dd($likeArr, $k, $like_count);

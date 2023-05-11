@@ -9,17 +9,25 @@ use App\Models\Like;
 use App\Models\Ht_pivot;
 use App\Models\Ht;
 use App\Models\Photo;
-use App\Http\Requests\StoreHistoryRequest;
-use App\Http\Requests\UpdateHistoryRequest;
+use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $histories = History::orderBy('id');
+        $user_status = $request->user();
+        $htf = $request->hash_tags ?? 0;
+        if($htf > 0) {
+            $ht_pivots = Ht_pivot::where('hts__id', $htf)->get();
+            $hist_arr = $ht_pivots->pluck('histories__id')->all();
+            $histories = History::whereIn('id', $hist_arr);
+        } else {
+            $histories = History::orderBy('id');
+        }
+        // $histories = $histories->orderBy('id');
         $histories = $histories->paginate(3)->withQueryString();
         $users = User::all();
         $moneys = Money::all();
@@ -29,6 +37,8 @@ class HistoryController extends Controller
         $hts = Ht::orderBy('text');
         $hts = $hts->get();
         $gallery = Photo::all(); 
+        // $kk = $likes->where(['user_id' => 22, 'history_id' => 2])->first();
+        // dd($kk);
 
         return view('back.history.index', [
             'histories' => $histories,
@@ -38,52 +48,36 @@ class HistoryController extends Controller
             'ht_pivots' => $ht_pivots,
             'hts' => $hts,
             'gallery' => $gallery,
+            'htf' => $htf,
+            'user_status' => $user_status,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreHistoryRequest $request)
+    public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(History $history)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(History $history)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateHistoryRequest $request, History $history)
+    public function update(Request $request, History $history)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(History $history)
     {
         //

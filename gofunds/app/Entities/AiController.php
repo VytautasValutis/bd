@@ -19,7 +19,7 @@ class AiController
         $response = $client->post('https://api.openai.com/v1/completions', [
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer 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',
+                'Authorization' => 'Bearer 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',
             ],
             'json' => [
                 'prompt' => $this->prompt,
