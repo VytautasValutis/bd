@@ -35,7 +35,7 @@ class FrontController extends Controller
         $hts = $hts->get();
         $gallery = Photo::all(); 
 
-        return redirect()->view('front.index', [
+        return view('front.index', [
             'histories' => $histories,
             'users' => $users,
             'moneys' => $moneys,
