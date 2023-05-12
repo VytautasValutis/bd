@@ -18,12 +18,13 @@ use App\Http\Controllers\FrontController as FR;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('front\index');
+// });
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::get('/ai-route', 'App\Http\Controllers\AiController@sendRequest');
