@@ -22,9 +22,10 @@ class FrontController extends Controller
             $hist_arr = $ht_pivots->pluck('histories__id')->all();
             $histories = History::whereIn('id', $hist_arr);
         } else {
-            $histories = History::orderBy('id');
+            $histories = History::where('id', '>', '0');
         }
         $histories = $histories->where('approved', 1);
+        $histories = $histories->orderBy('lack_money', 'desc');
         $histories = $histories->paginate(3)->withQueryString();
         $users = User::all();
         $moneys = Money::all();

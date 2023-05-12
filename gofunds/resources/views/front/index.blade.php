@@ -99,8 +99,9 @@
                         </td>
                         <td colspan="2">
                             Lack of 
-                            <div>
-                            </div>
+                        <div style="width: 6rem;">
+                            &#x20AC; {{number_format($hist->lack_money, 2, '.', ' ')}}
+                        </div>
                         </td>
                     </tr>
                     <tr>
