@@ -17,7 +17,12 @@
             </thead>
             <tbody>
                 @forelse($histories as $i => $hist)
-                @if($hist->approved || $user_status->role <= 5) <tr>
+                @if($hist->approved || $user_status->role <= 5) 
+                @if($hist->lack_money <= 0)
+                <tr class="table-active">
+                @else
+                <tr>
+                @endif
                     <td>
                         @foreach($users as $u)
                         @if($hist->user_id == $u->id)
@@ -57,7 +62,11 @@
                         </div>
                     </td>
                     </tr>
-                    <tr>
+                @if($hist->lack_money <= 0)
+                <tr class="table-active">
+                @else
+                <tr>
+                @endif
                         <td>
                         </td>
                         <td>
@@ -86,7 +95,9 @@
                                 <div class="buttons">
                                     @include('front.donateHistory')
                                 </div>
+                                @if($hist->lack_money > 0)
                                 @include('front.donate')
+                                @endif
                                 @include('front.like')
                             </div>
                         </td>
@@ -97,11 +108,18 @@
                                 </svg>
                             </b>{{$hist->like}}
                         </td>
-                        <td colspan="2">
+                        @if($hist->lack_money > 0)
+                        <td colspan="2" class="table-info">
                             Lack of 
                         <div style="width: 6rem;">
                             &#x20AC; {{number_format($hist->lack_money, 2, '.', ' ')}}
                         </div>
+                        @else
+                        <td colspan="2" class="table-light">
+                        <div style="color: red">
+                            funds collected
+                        </div>
+                        @endif
                         </td>
                     </tr>
                     <tr>

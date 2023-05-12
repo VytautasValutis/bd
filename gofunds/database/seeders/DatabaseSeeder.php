@@ -118,7 +118,7 @@ class DatabaseSeeder extends Seeder
             }
 
             $prompt = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:' . $tags_str;
-            $max_tokens = 200; 
+            $max_tokens = 300; 
             $Ai_req = new AiController($prompt, $max_tokens);
             $story = $Ai_req->sendRequest();
             DB::table('histories')->insert([

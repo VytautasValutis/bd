@@ -32,7 +32,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li>
-                            <form action="{{route('history-index')}}" method="get">
+                            <form action="{{route('front-index')}}" method="get">
                                 <div class="container">
                                     <div class="row justify-content-left">
                                         <div class="col-8 m-1">
@@ -45,13 +45,42 @@
                                             </select>
                                         </div>
                                         <div class="col-3 m-1">
-                                            <button type="submit" class="btn btn-outline-primary">Filter</button>
+                                            <button type="submit" class="btn btn-outline-primary"> #Filter</button>
                                         </div>
                                         @endif
                                     </div>
                                 </div>
                             </form>
                         </li>
+                        @if($sort_like > 0)
+                        <li class="nav-item">
+                            <div>
+                                <form action="{{route('front-index')}}" method="get">
+                                    <button class="btn btn-outline-info m-1">Sort by donate</a>
+                                        <input type="hidden" name="sort_like" value="0">
+                                </form>
+                            </div>
+                        </li>
+                        <li> 
+                            <div class="m-2">
+                                Sorted by likes
+                            </div>
+                        </li>
+                        @else
+                        <li class="nav-item">
+                            <div>
+                                <form action="{{route('front-index')}}" method="get">
+                                    <button class="btn btn-outline-info m-1">Sort by like</a>
+                                        <input type="hidden" name="sort_like" value="1">
+                                </form>
+                            </div>
+                        </li>
+                        <li> 
+                            <div class="m-2">
+                                Sorted by lack of donates
+                            </div>
+                        </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

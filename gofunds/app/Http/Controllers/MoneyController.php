@@ -17,10 +17,9 @@ class MoneyController extends Controller
     public function create(Request $request, History $history)
     {
         $hist_id = $history->id;
-        $value = $request->value;
+        $value = (float) $request->value;
         if($value > 0) {
-            // $history = History::where('id', $hist_id)->first();
-            $have_money = (int) $history->have_money;
+            $have_money = $history->have_money;
             $lack_money = $history->lack_money;
             $need_money = $history->need_money;
             $have_money += $value;
@@ -29,10 +28,6 @@ class MoneyController extends Controller
             $history->update([
                 'have_money' => $have_money,
                 'lack_money' => $lack_money,
-            // ]);
-            // DB::table('histories')->where('id', $hist_id)->update([
-            //     'have_money' => $have_money,
-            //     'lack_money' => $lack_money,
             ]);
 
             Money::create([
