@@ -70,7 +70,14 @@ class HistoryController extends Controller
 
     public function edit(History $history)
     {
-        //
+        $approved = 1;
+        $lack_money = $history->need_money;
+
+        $history->update([
+            'approved' => $approved,
+            'lack_money' => $lack_money,
+        ]);
+        return redirect()->back();
     }
 
     public function update(Request $request, History $history)
