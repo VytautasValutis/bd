@@ -81,6 +81,11 @@
                             </div>
                         </li>
                         @endif
+                        @if(Auth::id() && !($histories->where('user_id', $user_status->id)->first()))
+                        <li>
+                        <a href="{{route('history-create')}}" class="btn btn-outline-info m-1btn btn-outline-info m-1" >ADD history</a>
+                        </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
