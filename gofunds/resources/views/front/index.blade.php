@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 <div class="row justify-content-center">
@@ -6,7 +6,7 @@
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th scope="col">Author</th>
+                    <th scope="col">AuthorF</th>
                     <th scope="col" class="w-50">Story</th>
                     <th scope="col" class="w-25">Main picture and gallery up to five photo</th>
                     <th scope="col">Need money</th>

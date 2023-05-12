@@ -1,0 +1,111 @@
+@import 'variables';
+@import 'bootstrap/scss/bootstrap';
+
+.ht-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  .ht-element {
+    display: flex;
+    justify-content: space-around;
+
+    .tag {
+      color: skyblue;
+      padding: 0 7px;
+      font-size: 20px;
+      position: relative;
+
+      &::before {
+        content: '#';
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+
+    .red {
+      color: red;
+    }
+  }
+}
+
+.button-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+    align-items: baseline;
+  }
+}
+
+.gallery {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  .photo {
+    display: flex;
+    justify-content: space-around;
+    gap: 3px;
+    align-items: baseline;
+  }
+}
+
+.img-wrapper {
+  position: relative;
+  height: auto;
+  width: 130px;
+
+}
+
+.img-responsive {
+  width: 100px;
+  height: auto;
+}
+
+.modal-body {
+  text-align: center;
+
+  .img-responsive {
+    width: auto;
+  }
+}
+
+.modal-content {
+  width: 100%;
+  .modal-body {
+    div {
+      span {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+    .img-overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+
+    .img-overlay:before {
+      content: ' ';
+      display: block;
+      /* adjust 'height' to position overlay content vertically */
+      height: 100%;
+    }
+
+    .line {
+      width: 100%;
+      height: 1px;
+      border: 1px dotted blue;
+    }
