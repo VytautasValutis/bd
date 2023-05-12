@@ -15,4 +15,21 @@ class History extends Model
     {
         return $this->belongsToMany(Ht::class, 'ht_pivots', 'histories__id', 'ht__id');
     }
+
+    public function like()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function money()
+    {
+        return $this->hasMany(Money::class);
+    }
+
+    public function photo()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+
 }
