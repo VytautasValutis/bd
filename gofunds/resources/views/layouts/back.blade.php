@@ -52,6 +52,13 @@
                                 </div>
                             </form>
                         </li>
+                        <li class="nav-item">
+                            <div>
+                                <a href="" class="btn btn-outline-info mt-1">Edit #</a>
+                            </div>
+                        </li>
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

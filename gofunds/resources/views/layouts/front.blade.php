@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    GOFUNDS
+                    GOFUNDS-F
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                                 <div class="container">
                                     <div class="row justify-content-left">
                                         <div class="col-8 m-1">
-                                        @if(isset($hts))
+                                            @if(isset($hts))
                                             <select class="form-select" name="hash_tags">
                                                 <option value="0" selected>Hash-tag select</option>
                                                 @foreach($hts as $k => $ht)
@@ -47,12 +47,11 @@
                                         <div class="col-3 m-1">
                                             <button type="submit" class="btn btn-outline-primary">Filter</button>
                                         </div>
-                                        @endif    
+                                        @endif
                                     </div>
                                 </div>
                             </form>
                         </li>
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -187,14 +187,23 @@ class DatabaseSeeder extends Seeder
             if($money_count > 0) {
                 $money_min = (int) $history->need_money * 100 / 20;
                 $money_max = (int) $history->need_money * 100 / 5;
+                $money_sum = 0;
                 foreach(range(1, $money_count) as $_) {
+                    $money = rand($money_min, $money_max) / 100;
                     DB::table('money')->insert([
                         'user_id' => rand(1,20),
                         'history_id' => $history->id,
-                        'money' => rand($money_min, $money_max) / 100,
+                        'money' => $money,
                     ]);
+                    $money_sum += $money;
                 }
             }
+            $diff_money = $history->need - $money_sum;
+            $lack_money = $diff_money > 0 ? $diff_money : 0;
+            DB::table('histories')->where('id', $history->id)->update([
+                'have_money' => $money_sum,
+                'lack_money' => $lack_money,
+            ]);
             $key_prob = rand(1, 100);
             $like_count = match(true) {
                 $key_prob <= 20 => 1,

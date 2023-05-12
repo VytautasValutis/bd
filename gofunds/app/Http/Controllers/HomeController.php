@@ -26,7 +26,7 @@ class HomeController extends Controller
         // return view('history-index');
         $hts = Ht::orderBy('text');
         $hts = $hts->get();
-        if ($request->user && $request->user()->role < 5) {
+        if ($request->user() && $request->user()->role < 5) {
             return redirect()->route('history-index');
         }
         return redirect()->route('front-index', [

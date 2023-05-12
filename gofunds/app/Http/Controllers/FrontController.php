@@ -24,7 +24,7 @@ class FrontController extends Controller
         } else {
             $histories = History::orderBy('id');
         }
-        // $histories = $histories->orderBy('id');
+        $histories = $histories->where('approved', 1);
         $histories = $histories->paginate(3)->withQueryString();
         $users = User::all();
         $moneys = Money::all();
