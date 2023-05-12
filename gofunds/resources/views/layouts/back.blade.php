@@ -15,14 +15,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/front/sass/app.scss', 'resources/front/js/app.js'])
+    @vite(['resources/back/sass/app.scss', 'resources/back/js/app.js'])
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    GOFUNDS-F
+                    GOFUNDS
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -32,11 +32,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li>
-                            <form action="{{route('front-index')}}" method="get">
+                            <form action="{{route('history-index')}}" method="get">
                                 <div class="container">
                                     <div class="row justify-content-left">
                                         <div class="col-8 m-1">
-                                            @if(isset($hts))
+                                        @if(isset($hts))
                                             <select class="form-select" name="hash_tags">
                                                 <option value="0" selected>Hash-tag select</option>
                                                 @foreach($hts as $k => $ht)
@@ -45,42 +45,20 @@
                                             </select>
                                         </div>
                                         <div class="col-3 m-1">
-                                            <button type="submit" class="btn btn-outline-primary"> #Filter</button>
+                                            <button type="submit" class="btn btn-outline-primary">Filter</button>
                                         </div>
-                                        @endif
+                                        @endif    
                                     </div>
                                 </div>
                             </form>
                         </li>
-                        @if($sort_like > 0)
                         <li class="nav-item">
                             <div>
-                                <form action="{{route('front-index')}}" method="get">
-                                    <button class="btn btn-outline-info m-1">Sort by donate</a>
-                                        <input type="hidden" name="sort_like" value="0">
-                                </form>
+                                <a href="" class="btn btn-outline-info mt-1">Edit #</a>
                             </div>
                         </li>
-                        <li> 
-                            <div class="m-2">
-                                Sorted by likes
-                            </div>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <div>
-                                <form action="{{route('front-index')}}" method="get">
-                                    <button class="btn btn-outline-info m-1">Sort by like</a>
-                                        <input type="hidden" name="sort_like" value="1">
-                                </form>
-                            </div>
-                        </li>
-                        <li> 
-                            <div class="m-2">
-                                Sorted by lack of donates
-                            </div>
-                        </li>
-                        @endif
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

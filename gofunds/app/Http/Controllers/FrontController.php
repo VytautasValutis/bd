@@ -15,6 +15,7 @@ class FrontController extends Controller
 {
     public function index(Request $request) 
     {
+        $sort_like = $request->sort_like ?? 0;
         $user_status = $request->user();
         $htf = $request->hash_tags ?? 0;
         if($htf > 0) {
@@ -22,9 +23,14 @@ class FrontController extends Controller
             $hist_arr = $ht_pivots->pluck('histories__id')->all();
             $histories = History::whereIn('id', $hist_arr);
         } else {
-            $histories = History::orderBy('id');
+            $histories = History::where('id', '>', '0');
         }
-        // $histories = $histories->orderBy('id');
+        $histories = $histories->where('approved', 1);
+        if($sort_like) {
+            $histories = $histories->orderBy('like', 'desc');
+        } else {
+            $histories = $histories->orderBy('lack_money', 'desc');
+        }
         $histories = $histories->paginate(3)->withQueryString();
         $users = User::all();
         $moneys = Money::all();
@@ -45,6 +51,7 @@ class FrontController extends Controller
             'gallery' => $gallery,
             'htf' => $htf,
             'user_status' => $user_status,
+            'sort_like' => $sort_like,
         ]);
     }
 }

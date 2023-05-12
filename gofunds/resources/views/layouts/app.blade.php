@@ -52,7 +52,6 @@
                                 </div>
                             </form>
                         </li>
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
