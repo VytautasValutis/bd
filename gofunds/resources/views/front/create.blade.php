@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <div class="container">
                             <div class="row">
-                                <div class="col col-7">
+                                <div class="col col-6">
                                     <h2>Add/Edit Your History<span class="ms-4 fs-4">User {{$user->name}}</span>
                                         @if($hist->photo)
                                         <img src="{{asset('history-photo') .'/t_'. $hist->photo}}">
@@ -18,7 +18,7 @@
                                         @endif
                                     </h2>
                                 </div>
-                                <div class="col col-3">
+                                <div class="col col-4">
                                     <label class="form-label">Main photo</label>
                                     <input type="file" class="form-control" name="photo">
                                     <button type="submit" name="delete" value="1" class="mt-2 btn btn-outline-danger">Delete photo</button>
@@ -52,7 +52,7 @@
                     </div>
                         <button type="submit" class="btn btn-outline-danger m-1 ms-3" name="submit" value="1" form="hist_edit">Submit</button>
                         <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
-                        <button type="submit" class="btn btn-outline-danger m-1" formaction="{{route('home')}}" formmethod="get">end of edit</button>
+                        <button type="submit" class="btn btn-outline-danger m-1" formaction="{{route('home')}}" formmethod="get">End of editing</button>
                     @csrf
                     @method('put')
                 </form>

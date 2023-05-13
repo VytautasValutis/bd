@@ -39,8 +39,7 @@ class History extends Model
         $name = rand(1000000, 9999999) . '-' . $name;
         $path = public_path() . '/history-photo/';
         $photo->move($path, $name);
-        $img = Image::make($path . $name);
-        $img->resize(200, 200);
+        $img = Image::make($path . $name)->heighten(100);
         $img->save($path . 't_' . $name, 90);
         return $name;
     }

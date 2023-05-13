@@ -52,6 +52,7 @@ class FrontController extends Controller
         } else {
             $hist_add = false;
             $hist_edit = false;
+            $hist_edit_obj = null;
         }    
 
 
@@ -107,7 +108,13 @@ class FrontController extends Controller
         //     $request->submit,  
         //     $request->photo,  
         //     $request->story,  
-        // );
+        // );        
+
+        if ($request->delete == 1) {
+            $history->deletePhoto();
+            return redirect()->back();
+        }
+
         $photo = $request->photo;
         if(isset($photo)) {
             $name = $history->savePhoto($photo);
