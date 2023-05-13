@@ -94,7 +94,7 @@
                         @if(Auth::id() && $hist_edit)
                         <li>
                         {{$user_status->id}}
-                        <a href="{{route('front-create')}}" class="btn btn-outline-info m-1btn btn-outline-info m-1" >EDIT history</a>
+                        <a href="{{route('front-edit', $hist_edit_obj)}}" class="btn btn-outline-info m-1btn btn-outline-info m-1" >EDIT history</a>
                         </li>
                         <li> 
                             <div class="m-2">

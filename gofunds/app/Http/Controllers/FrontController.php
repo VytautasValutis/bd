@@ -44,10 +44,11 @@ class FrontController extends Controller
         $hist_add = !History::where([
             'user_id' => $user_status->id,
             ])->first();
-        $hist_edit = !!History::where([
+        $hist_edit_obj = History::where([
             'user_id' => $user_status->id,
             'approved' => '0',
             ])->first();
+        $hist_edit = $hist_edit_obj !== null ? true : false;             
         } else {
             $hist_add = false;
             $hist_edit = false;
@@ -67,6 +68,7 @@ class FrontController extends Controller
             'sort_like' => $sort_like,
             'hist_add' => $hist_add,
             'hist_edit' => $hist_edit,
+            'hist_edit_obj' => $hist_edit_obj,
         ]);
     }
 
@@ -75,13 +77,24 @@ class FrontController extends Controller
         $user = $request->user();
         $hist = History::create([
             'user_id' => $user->id,
-            'story' => "Here you can write your story up to 5000 characters",
+            'story' => "Here you can write your story up to 5000 characters or press AI button and AI help to You get hash tags and write history.",
             'need_money' => 1,
             'approved' => 0,
+            'photo' => null,
         ]);
         return view('front.create', [
             'user' => $user,
             'hist' => $hist,
+        ]);
+    }
+
+    public function edit(Request $request, History $history)
+    {
+        // dd($history->id);
+        $user = $request->user();
+        return view('front.create', [
+            'user' => $user,
+            'hist' => $history,
         ]);
     }
 
