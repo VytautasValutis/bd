@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ht_pivots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('histories__id')->references('_id')->on('histories');
+            $table->unsignedBigInteger('histories__id')->references('_id')->on('histories')->onDelete('cascade');
             $table->unsignedBigInteger('hts__id')->references('_id')->on('hts');
             $table->timestamps();
         });

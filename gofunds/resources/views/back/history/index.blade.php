@@ -69,7 +69,7 @@
                     </td>
                     <td>
                         @if(!$hist->approved)
-                        <a href="" class="btn btn-outline-success">Approve</a>
+                        <a href="{{route("history-edit", $hist)}}" class="btn btn-outline-success">Approve</a>
                         @endif
                     </td>
                     </tr>

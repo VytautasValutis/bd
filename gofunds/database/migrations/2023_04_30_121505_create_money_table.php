@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('history_id');
+            $table->foreign('history_id')->references('id')->on('histories')->onDelete('cascade');
             $table->decimal('money' , 9, 2);
-            // $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
