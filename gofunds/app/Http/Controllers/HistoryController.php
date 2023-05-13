@@ -37,8 +37,6 @@ class HistoryController extends Controller
         $hts = Ht::orderBy('text');
         $hts = $hts->get();
         $gallery = Photo::all(); 
-        // $kk = $likes->where(['user_id' => 22, 'history_id' => 2])->first();
-        // dd($kk);
 
         return view('back.history.index', [
             'histories' => $histories,
@@ -87,6 +85,19 @@ class HistoryController extends Controller
 
     public function destroy(History $history)
     {
-        //
+                
+        if ($cat->gallery->count()) {
+            foreach ($cat->gallery as $gal) {
+                $gal->deletePhoto();
+            }
+        }
+        
+        if ($cat->photo) {
+            $cat->deletePhoto();
+        }
+        
+        $cat->delete();
+        return redirect()->route('cats-index');
+
     }
 }
