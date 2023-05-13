@@ -125,10 +125,13 @@
       height: 30px;
   }
   
-  .gallery-edit {
+  .galleryH {
       img {
           width: 300px;
           height: auto;
       }
   }
   
+  [data-gallery="0"] {
+    display: none;
+}

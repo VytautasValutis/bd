@@ -130,6 +130,11 @@ class FrontController extends Controller
                 'story' => $request->story,
             ]);
         }
+
+        foreach ($request->galleryH ?? [] as $gallery) {
+            Photo::add($gallery, $history->id);
+        }
+
         return redirect()->back();
     }
 

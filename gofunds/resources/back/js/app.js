@@ -10,7 +10,7 @@ if (document.querySelector('.--add--gallery')) {
             const input = document.querySelector('[data-gallery="0"]').cloneNode(true);
             g++;
             input.dataset.gallery = g;
-            input.querySelector('input').setAttribute('name', 'gallery[]');
+            input.querySelector('input').setAttribute('name', 'galleryH[]');
             input.querySelector('span')
                 .addEventListener('click', e => {
                     e.target.closest('.mb-3').remove();
