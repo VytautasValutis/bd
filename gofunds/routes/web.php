@@ -59,6 +59,7 @@ Route::prefix('front')->name('front-')->group(function() {
     Route::get('/', [FR::class, 'index'])->name('index');
     Route::get('/create', [FR::class, 'create'])->name('create');
     Route::get('/edit/{history}', [FR::class, 'edit'])->name('edit');
+    Route::put('/update/{history}', [FR::class, 'update'])->name('update');
     // Route::get('/create', [HI::class, 'create'])->name('create');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');

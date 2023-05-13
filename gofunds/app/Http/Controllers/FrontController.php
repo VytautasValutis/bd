@@ -98,4 +98,32 @@ class FrontController extends Controller
         ]);
     }
 
+    public function update(Request $request, History $history)
+    {
+        // dd(
+        //     $history,
+        //     $request->delete,  
+        //     $request->AI,  
+        //     $request->submit,  
+        //     $request->photo,  
+        //     $request->story,  
+        // );
+        $photo = $request->photo;
+        if(isset($photo)) {
+            $name = $history->savePhoto($photo);
+            $history->deletePhoto();
+            $history->update([
+                'need_money' => $request->need_money,
+                'story' => $request->story,
+                'photo' => $name
+            ]);
+        } else {
+            $history->update([
+                'need_money' => $request->need_money,
+                'story' => $request->story,
+            ]);
+        }
+        return redirect()->back();
+    }
+
 }
