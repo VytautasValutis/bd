@@ -35,19 +35,6 @@
                             <form action="{{route('history-index')}}" method="get">
                                 <div class="container">
                                     <div class="row justify-content-left">
-                                        <div class="col-8 m-1">
-                                        @if(isset($hts))
-                                            <select class="form-select" name="hash_tags">
-                                                <option value="0" selected>Hash-tag select</option>
-                                                @foreach($hts as $k => $ht)
-                                                <option value="{{$ht->id}}">{{$ht->text}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-3 m-1">
-                                            <button type="submit" class="btn btn-outline-primary">Filter</button>
-                                        </div>
-                                        @endif    
                                     </div>
                                 </div>
                             </form>

@@ -34,7 +34,6 @@ class HomeController extends Controller
         return redirect()->route('front-index', [
             'hts' => $hts,
             'history' => $history,
-            'test' => 666,
         ]);
     }
 }

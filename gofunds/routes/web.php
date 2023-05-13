@@ -32,7 +32,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('history')->name('history-')->group(function() {
     Route::get('/', [HI::class, 'index'])->name('index');
     Route::get('/edit/{history}', [HI::class, 'edit'])->name('edit');
-    Route::get('/create', [HI::class, 'create'])->name('create');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
     // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
@@ -58,6 +57,7 @@ Route::prefix('like')->name('like-')->group(function() {
 
 Route::prefix('front')->name('front-')->group(function() {
     Route::get('/', [FR::class, 'index'])->name('index');
+    Route::get('/create', [FR::class, 'create'])->name('create');
     // Route::get('/create', [HI::class, 'create'])->name('create');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');

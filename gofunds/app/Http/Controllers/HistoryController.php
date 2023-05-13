@@ -53,7 +53,7 @@ class HistoryController extends Controller
 
     public function create()
     {
-        return view('front.create');
+        //
     }
 
     public function store(Request $request)

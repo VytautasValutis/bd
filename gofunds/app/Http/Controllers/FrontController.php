@@ -40,6 +40,19 @@ class FrontController extends Controller
         $hts = Ht::orderBy('text');
         $hts = $hts->get();
         $gallery = Photo::all(); 
+        if(isset($user_status)) {
+        $hist_add = !History::where([
+            'user_id' => $user_status->id,
+            ])->first();
+        $hist_edit = !!History::where([
+            'user_id' => $user_status->id,
+            'approved' => '0',
+            ])->first();
+        } else {
+            $hist_add = false;
+            $hist_edit = false;
+        }    
+
 
         return view('front.index', [
             'histories' => $histories,
@@ -52,6 +65,24 @@ class FrontController extends Controller
             'htf' => $htf,
             'user_status' => $user_status,
             'sort_like' => $sort_like,
+            'hist_add' => $hist_add,
+            'hist_edit' => $hist_edit,
         ]);
     }
+
+    public function create(Request $request)
+    {
+        $user = $request->user();
+        $hist = History::create([
+            'user_id' => $user->id,
+            'story' => "Here you can write your story up to 5000 characters",
+            'need_money' => 1,
+            'approved' => 0,
+        ]);
+        return view('front.create', [
+            'user' => $user,
+            'hist' => $hist,
+        ]);
+    }
+
 }
