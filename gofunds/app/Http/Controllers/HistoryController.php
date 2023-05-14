@@ -86,18 +86,38 @@ class HistoryController extends Controller
     public function destroy(History $history)
     {
                 
-        if ($cat->gallery->count()) {
-            foreach ($cat->gallery as $gal) {
+        if ($history->money->count()) {
+            foreach ($history->money as $mon) {
+                $mon->deleteMoney();
+            }
+        }
+
+        if ($history->likes->count()) {
+            foreach ($history->likes as $lik) {
+                $lik->deleteLike();
+            }
+        }
+
+        if ($history->htp->count()) {
+            foreach ($history->htp as $hh) {
+                $hh->deleteHtp();
+            }
+        }
+
+        if ($history->gallery->count()) {
+            foreach ($history->gallery as $gal) {
                 $gal->deletePhoto();
             }
         }
         
-        if ($cat->photo) {
-            $cat->deletePhoto();
+        if ($history->photo) {
+            $history->deletePhoto();
         }
+
+    
         
-        $cat->delete();
-        return redirect()->route('cats-index');
+        $history->delete();
+        return redirect()->back();
 
     }
 }

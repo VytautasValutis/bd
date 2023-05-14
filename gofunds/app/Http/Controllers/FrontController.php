@@ -10,6 +10,8 @@ use App\Models\Like;
 use App\Models\Ht_pivot;
 use App\Models\Ht;
 use App\Models\Photo;
+use Illuminate\Support\Facades\URL;
+
 
 class FrontController extends Controller
 {
@@ -52,6 +54,7 @@ class FrontController extends Controller
         } else {
             $hist_add = false;
             $hist_edit = false;
+            $hist_edit_obj = null;
         }    
 
 
@@ -75,6 +78,7 @@ class FrontController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
+        $gallery = Photo::all(); 
         $hist = History::create([
             'user_id' => $user->id,
             'story' => "Here you can write your story up to 5000 characters or press AI button and AI help to You get hash tags and write history.",
@@ -82,20 +86,22 @@ class FrontController extends Controller
             'approved' => 0,
             'photo' => null,
         ]);
-        return view('front.create', [
-            'user' => $user,
-            'hist' => $hist,
-        ]);
+
+        return redirect()->route('front-edit', $hist);
     }
 
     public function edit(Request $request, History $history)
     {
         // dd($history->id);
+        $gallery = Photo::where('hist_id', $history->id)->get(); 
         $user = $request->user();
         return view('front.create', [
             'user' => $user,
             'hist' => $history,
+            'gallery' => $gallery,
         ]);
+
+
     }
 
     public function update(Request $request, History $history)
@@ -107,7 +113,13 @@ class FrontController extends Controller
         //     $request->submit,  
         //     $request->photo,  
         //     $request->story,  
-        // );
+        // );        
+
+        if ($request->delete == 1) {
+            $history->deletePhoto();
+            return redirect()->back();
+        }
+
         $photo = $request->photo;
         if(isset($photo)) {
             $name = $history->savePhoto($photo);
@@ -123,7 +135,23 @@ class FrontController extends Controller
                 'story' => $request->story,
             ]);
         }
+
+        foreach ($request->galleryH ?? [] as $gallery) {
+            Photo::add($gallery, $history->id);
+        }
+
         return redirect()->back();
     }
+
+    public function destroyPhoto(Request $request)
+    {
+        $photo = Photo::where('id', $request->photo)->first();
+        $history = History::where('id', $request->hist)->first();
+        // dd($photo, $history);
+        $photo->deletePhoto();
+        $photo->delete();
+        return redirect()->route('front-edit', $history);
+    }
+
 
 }

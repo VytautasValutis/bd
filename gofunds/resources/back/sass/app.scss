@@ -43,10 +43,12 @@
     align-items: baseline;
   }
 }
-
+div.story {
+  width: 500px;
+}
 .gallery {
   display: flex;
-  width: 100%;
+  width: 500px;
   justify-content: space-between;
 
   .photo {
@@ -125,10 +127,13 @@
       height: 30px;
   }
   
-  .gallery-edit {
+  .galleryH {
       img {
           width: 300px;
           height: auto;
       }
   }
   
+  [data-gallery="0"] {
+    display: none;
+}

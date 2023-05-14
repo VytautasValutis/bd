@@ -13,24 +13,24 @@ class History extends Model
     protected $fillable = ['user_id', 'story', 'need_money', 'have_money', 'lack_money', 'like', 'photo', 'approved', ];
 
 
-    public function ht()
+    public function htp()
     {
-        return $this->belongsToMany(Ht::class, 'ht_pivots', 'histories__id', 'ht__id');
+        return $this->hasMany(Ht::class, 'ht_pivots', 'histories__id', 'id');
     }
 
-    public function like()
+    public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'history_id', 'id');
     }
 
     public function money()
     {
-        return $this->hasMany(Money::class);
+        return $this->hasMany(Money::class, 'history_id', 'id');
     }
 
-    public function photo()
+    public function gallery()
     {
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Photo::class, 'hist_id', 'id');
     }
 
     public function savePhoto(UploadedFile $photo) : string
@@ -39,8 +39,7 @@ class History extends Model
         $name = rand(1000000, 9999999) . '-' . $name;
         $path = public_path() . '/history-photo/';
         $photo->move($path, $name);
-        $img = Image::make($path . $name);
-        $img->resize(200, 200);
+        $img = Image::make($path . $name)->heighten(100);
         $img->save($path . 't_' . $name, 90);
         return $name;
     }
@@ -56,6 +55,21 @@ class History extends Model
         $this->update([
             'photo' => null,
         ]);
+    }
+
+    public function deleteLike()
+    {
+        $this->like->delete;
+    }
+
+    public function deleteMoney()
+    {
+        $this->money->delete;
+    }
+
+    public function deleteHtp()
+    {
+        $this->htp->delete;
     }
 
 

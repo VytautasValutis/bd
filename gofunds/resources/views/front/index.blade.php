@@ -3,12 +3,12 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-11">
-        <table class="table table-borderless">
+        <table class="table table-borderless table-fixed">
             <thead>
                 <tr>
                     <th scope="col">Author</th>
                     <th scope="col" class="w-50">Story</th>
-                    <th scope="col" class="w-25">Main picture and gallery up to five photo</th>
+                    <th scope="col">Main picture and gallery</th>
                     <th scope="col"></th>
                     <th scope="col">Likes</th>
                     <th scope="col">Donates</th>
@@ -31,9 +31,9 @@
                         @endforeach
                     </td>
                     <td>
-                        <div>{{$hist->story}} </div>
+                        <div class="story">{{$hist->story}} </div>
                     </td>
-                    <td>
+                    <td class="overflow-scroll">
                         <div class="gallery">
                             <div class="photo">
                                 <div>
@@ -115,7 +115,7 @@
                             &#x20AC; {{number_format($hist->lack_money, 2, '.', ' ')}}
                         </div>
                         @else
-                        <td colspan="2" class="table-light">
+                        <td colspan="2" class="table-secondary">
                         <div style="color: red">
                             funds collected
                         </div>

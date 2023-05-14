@@ -3,16 +3,15 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-11">
-        <table class="table table-borderless">
+        <table class="table table-borderless table-fixed">
             <thead>
                 <tr>
-                    <th scope="col">Author</th>
-                    <th scope="col" class="w-50">Story</th>
-                    <th scope="col" class="w-25">Main picture and gallery up to five photo</th>
-                    <th scope="col">Need money</th>
-                    <th scope="col">Likes</th>
-                    <th scope="col">Have money</th>
-                    <th scope="col"></th>
+                    <th scope="col" class="">Author</th>
+                    <th scope="col" class="w-25">Story</th>
+                    <th scope="col" class="w-50">Main picture and gallery</th>
+                    <th scope="col" class="">Need money</th>
+                    <th scope="col" class="">Likes</th>
+                    <th scope="col" class="">Have money</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,40 +27,22 @@
                     <td>
                         <div>{{$hist->story}} </div>
                     </td>
-                    <td>
+                    <td class="overflow-scroll w-25">
                         <div class="gallery">
                             <div class="photo">
                                 <div>
                                     @if($hist->photo)
                                     <img src="{{asset('history-photo') .'/t_'. $hist->photo}}">
                                     @else
-                                    <img src="{{asset('history-photo') .'/no.jpg'}}">
+                                    <img src="{{asset('history-photo') .'/t_no_photo.jpg'}}">
                                     @endif
                                 </div>
-                                @foreach($gallery as $k => $g)
-                                @if($g->hist_id == $hist->id)
-                                <button type="button" class="btn btn-overlay-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$k}}">
-                                    <img class="img-responsive" src="{{asset('history-photo') .'/'. $g->photo}}">
-                                </button>
-                                <div class="modal fade" id="exampleModal{{$k}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="btn btn-md btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img class="img-responsive" src="{{asset('history-photo') .'/'. $g->photo}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endif
-                                @endforeach
+                                @include('back.history.gallery')
                             </div>
                         </div>
                     </td>
                     <td>
-                        <form action="" method="post">
+                        <form action="{{route('history-delete', $hist)}}" method="post">
                             <button type="submit" class="btn btn-outline-danger">delete</button>
                             @csrf
                             @method('delete')
@@ -69,7 +50,7 @@
                     </td>
                     <td>
                         @if(!$hist->approved)
-                        <a href="{{route("history-edit", $hist)}}" class="btn btn-outline-success">Approve</a>
+                        <a href="{{route('history-edit', $hist)}}" class="btn btn-outline-success">Approve</a>
                         @endif
                     </td>
                     </tr>
@@ -127,7 +108,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6">
+                        <td colspan="5">
                             <div class="line">
                             </div>
                         </td>
