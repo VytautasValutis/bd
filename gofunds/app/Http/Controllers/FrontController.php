@@ -93,7 +93,7 @@ class FrontController extends Controller
     public function edit(Request $request, History $history)
     {
         // dd($history->id);
-        $gallery = Photo::all(); 
+        $gallery = Photo::where('hist_id', $history->id)->get(); 
         $user = $request->user();
         return view('front.create', [
             'user' => $user,
@@ -143,10 +143,14 @@ class FrontController extends Controller
         return redirect()->back();
     }
 
-    public function destroyPhoto(Photo $photo)
+    public function destroyPhoto(Request $request)
     {
+        $photo = Photo::where('id', $request->photo)->first();
+        $history = History::where('id', $request->hist)->first();
+        // dd($photo, $history);
         $photo->deletePhoto();
-        return redirect()->back();
+        $photo->delete();
+        return redirect()->route('front-edit', $history);
     }
 
 

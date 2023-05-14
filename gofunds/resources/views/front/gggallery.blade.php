@@ -1,15 +1,8 @@
     @foreach($gallery as $k => $g)
-    @if($g->hist_id == $hist->id)
     <button type="button" class="btn btn-overlay-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$k}}">
-        <img src="{{storage_path() .'/'. $g->photo}}">
+        <img class="img-responsive" src="{{asset('history-photo') . '/'. $g->photo}}">
     </button>
-    <form action="{{route('history-delete-photo', $g)}}" method="post">
-        <button type="button">
-            <img class="img-responsive" src="{{asset('history-photo') .'/images/del_image.png'}}">
-        </button>
-        @csrf
-        @method('delete')
-    </form>
+        <a href="{{route('front-delete-photo', ['photo' => $g, 'hist' => $hist])}}" class="btn btn-outline-danger btn-xs">x</a>
 
     <div class="modal fade" id="exampleModal{{$k}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -23,5 +16,4 @@
             </div>
         </div>
     </div>
-    @endif
     @endforeach

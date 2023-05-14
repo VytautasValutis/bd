@@ -40,15 +40,23 @@
                             <textarea class="form-control" name="story" rows="5">{{$hist->story}}</textarea>
                         </div>
                         <div>
-                    <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
-                    </div>
+                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
+                        </div>
                         Please add gallery photo
                         <div class="gallery-edit overflow-scroll">
-                            @include('back.history.gallery')
+                            @include('front.gggallery')
                         </div>
-                        <div class="mb-3" data-gallery="0">
-                            <label class="form-label">Gallery photo <span class="rem">X</span></label>
-                            <input type="file" class="form-control">
+                        <div class="mt-3" data-gallery="0">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label class="form-label">Gallery photo <span class="rem">X</span></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="file" class="form-control w-50">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="gallery-inputs">
 

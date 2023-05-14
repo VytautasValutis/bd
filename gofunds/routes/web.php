@@ -33,7 +33,6 @@ Route::prefix('history')->name('history-')->group(function() {
     Route::get('/', [HI::class, 'index'])->name('index');
     Route::get('/edit/{history}', [HI::class, 'edit'])->name('edit');
     Route::delete('/delete/{history}', [HI::class, 'destroy'])->name('delete');
-    Route::delete('/delete-photo/{photo}', [HI::class, 'destroyPhoto'])->name('delete-photo');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
 });
@@ -61,6 +60,7 @@ Route::prefix('front')->name('front-')->group(function() {
     Route::get('/create', [FR::class, 'create'])->name('create');
     Route::get('/edit/{history}', [FR::class, 'edit'])->name('edit');
     Route::put('/update/{history}', [FR::class, 'update'])->name('update');
+    Route::get('/delete-photo', [FR::class, 'destroyPhoto'])->name('delete-photo');
     // Route::get('/create', [HI::class, 'create'])->name('create');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');

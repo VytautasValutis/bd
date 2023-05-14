@@ -13,7 +13,7 @@ if (document.querySelector('.--add--gallery')) {
             input.querySelector('input').setAttribute('name', 'galleryH[]');
             input.querySelector('span')
                 .addEventListener('click', e => {
-                    e.target.closest('.mb-3').remove();
+                    e.target.closest('.mt-3').remove();
                 });
             document.querySelector('.gallery-inputs').append(input);
         });
