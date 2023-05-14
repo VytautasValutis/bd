@@ -86,11 +86,8 @@ class FrontController extends Controller
             'approved' => 0,
             'photo' => null,
         ]);
-        return view('front.create', [
-            'user' => $user,
-            'hist' => $hist,
-            'gallery' => $gallery,
-        ]);
+
+        return redirect()->route('front-edit', $hist);
     }
 
     public function edit(Request $request, History $history)
@@ -103,6 +100,8 @@ class FrontController extends Controller
             'hist' => $history,
             'gallery' => $gallery,
         ]);
+
+
     }
 
     public function update(Request $request, History $history)
