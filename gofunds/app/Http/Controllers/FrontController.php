@@ -92,13 +92,16 @@ class FrontController extends Controller
 
     public function edit(Request $request, History $history)
     {
-        // dd($history->id);
-        $gallery = Photo::where('hist_id', $history->id)->get(); 
+        $gallery = Photo::where('hist_id', $history->id)->get();
+        $ht_pivots = Ht_pivot::where('histories__id', $history->id)->get();
+        $hist_arr = $ht_pivots->pluck('hts__id')->all();
+        $hts = Ht::whereIn('id', $hist_arr)->get();
         $user = $request->user();
         return view('front.create', [
             'user' => $user,
             'hist' => $history,
             'gallery' => $gallery,
+            'tags' => $hts,
         ]);
 
 

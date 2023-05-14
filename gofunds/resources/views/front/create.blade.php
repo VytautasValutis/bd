@@ -32,8 +32,18 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            Select/change hash tags:
-                            {{-- @include('front.tags') --}}
+                            <!--                        
+                            <div class="ht-line">
+                                <div class="ht-element">
+                                    @foreach($tags as $tag)
+                                    <div class="tag">
+                                        {{$tag->text}}
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+-->
+                            @include('front.tags')
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Edit Your history</label>
