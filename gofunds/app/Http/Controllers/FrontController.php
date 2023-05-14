@@ -10,6 +10,8 @@ use App\Models\Like;
 use App\Models\Ht_pivot;
 use App\Models\Ht;
 use App\Models\Photo;
+use Illuminate\Support\Facades\URL;
+
 
 class FrontController extends Controller
 {
@@ -141,5 +143,12 @@ class FrontController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroyPhoto(Photo $photo)
+    {
+        $photo->deletePhoto();
+        return redirect()->back();
+    }
+
 
 }

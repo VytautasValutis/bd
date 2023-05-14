@@ -44,7 +44,7 @@
                     </div>
                         Please add gallery photo
                         <div class="gallery-edit overflow-scroll">
-                            @include('front.gallery')
+                            @include('back.history.gallery')
                         </div>
                         <div class="mb-3" data-gallery="0">
                             <label class="form-label">Gallery photo <span class="rem">X</span></label>

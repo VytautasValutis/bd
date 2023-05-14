@@ -31,7 +31,7 @@
                         @endforeach
                     </td>
                     <td>
-                        <div>{{$hist->story}} </div>
+                        <div class="story">{{$hist->story}} </div>
                     </td>
                     <td class="overflow-scroll">
                         <div class="gallery">

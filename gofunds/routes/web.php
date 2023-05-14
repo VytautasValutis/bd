@@ -32,9 +32,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('history')->name('history-')->group(function() {
     Route::get('/', [HI::class, 'index'])->name('index');
     Route::get('/edit/{history}', [HI::class, 'edit'])->name('edit');
+    Route::delete('/delete-photo/{photo}', [HI::class, 'destroyPhoto'])->name('delete-photo');
     // Route::post('/create', [HI::class, 'store'])->name('store');    
     // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
-    // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('money')->name('money-')->group(function() {

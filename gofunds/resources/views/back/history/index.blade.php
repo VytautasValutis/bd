@@ -37,7 +37,7 @@
                                     <img src="{{asset('history-photo') .'/no.jpg'}}">
                                     @endif
                                 </div>
-                                @include('front.gallery')
+                                @include('back.history.gallery')
                             </div>
                         </div>
                     </td>

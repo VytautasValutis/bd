@@ -43,10 +43,12 @@
     align-items: baseline;
   }
 }
-
+div.story {
+  width: 500px;
+}
 .gallery {
   display: flex;
-  width: 600px;
+  width: 500px;
   justify-content: space-between;
 
   .photo {
