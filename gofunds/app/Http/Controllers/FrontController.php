@@ -10,6 +10,8 @@ use App\Models\Like;
 use App\Models\Ht_pivot;
 use App\Models\Ht;
 use App\Models\Photo;
+use Illuminate\Support\Facades\URL;
+
 
 class FrontController extends Controller
 {
@@ -84,23 +86,22 @@ class FrontController extends Controller
             'approved' => 0,
             'photo' => null,
         ]);
-        return view('front.create', [
-            'user' => $user,
-            'hist' => $hist,
-            'gallery' => $gallery,
-        ]);
+
+        return redirect()->route('front-edit', $hist);
     }
 
     public function edit(Request $request, History $history)
     {
         // dd($history->id);
-        $gallery = Photo::all(); 
+        $gallery = Photo::where('hist_id', $history->id)->get(); 
         $user = $request->user();
         return view('front.create', [
             'user' => $user,
             'hist' => $history,
             'gallery' => $gallery,
         ]);
+
+
     }
 
     public function update(Request $request, History $history)
@@ -141,5 +142,16 @@ class FrontController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroyPhoto(Request $request)
+    {
+        $photo = Photo::where('id', $request->photo)->first();
+        $history = History::where('id', $request->hist)->first();
+        // dd($photo, $history);
+        $photo->deletePhoto();
+        $photo->delete();
+        return redirect()->route('front-edit', $history);
+    }
+
 
 }

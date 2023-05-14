@@ -22,4 +22,15 @@ class Photo extends Model
             'photo' => $name
         ]);
     }
+
+    public function deletePhoto()
+    {
+        if ($this->photo) {
+            $photo = public_path() . '/history-photo/' . $this->photo;
+            unlink($photo);
+            // $photo = public_path() . '/history-photo/t_' . $this->photo;
+            // unlink($photo);
+        }
+    }
+
 }
