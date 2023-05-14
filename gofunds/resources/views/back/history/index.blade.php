@@ -34,7 +34,7 @@
                                     @if($hist->photo)
                                     <img src="{{asset('history-photo') .'/t_'. $hist->photo}}">
                                     @else
-                                    <img src="{{asset('history-photo') .'/no.jpg'}}">
+                                    <img src="{{asset('history-photo') .'/t_no_photo.jpg'}}">
                                     @endif
                                 </div>
                                 @include('back.history.gallery')
@@ -42,7 +42,7 @@
                         </div>
                     </td>
                     <td>
-                        <form action="" method="post">
+                        <form action="{{route('history-delete', $hist)}}" method="post">
                             <button type="submit" class="btn btn-outline-danger">delete</button>
                             @csrf
                             @method('delete')
@@ -50,7 +50,7 @@
                     </td>
                     <td>
                         @if(!$hist->approved)
-                        <a href="{{route("history-edit", $hist)}}" class="btn btn-outline-success">Approve</a>
+                        <a href="{{route('history-edit', $hist)}}" class="btn btn-outline-success">Approve</a>
                         @endif
                     </td>
                     </tr>
