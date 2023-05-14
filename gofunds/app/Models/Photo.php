@@ -15,7 +15,7 @@ class Photo extends Model
     {
         $name = $gallery->getClientOriginalName();
         $name = rand(1000000, 9999999) . '-' . $name;
-        $path = public_path() . '/cats-photo/';
+        $path = public_path() . '/history-photo/';
         $gallery->move($path, $name);
         self::create([
             'hist_id' => $hist_id,

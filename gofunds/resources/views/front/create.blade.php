@@ -24,8 +24,8 @@
                                     <button type="submit" name="delete" value="1" class="mt-2 btn btn-outline-danger">Delete photo</button>
                                 </div>
                                 <div class="col col-2">
-                                <label>Need money</label>
-                                <input type="text" name='need_money' value='{{$hist->need_money}}' class="mt-3">
+                                    <label>Need money</label>
+                                    <input type="text" name='need_money' value='{{$hist->need_money}}' class="mt-3">
                                 </div>
                             </div>
                         </div>
@@ -39,6 +39,13 @@
                             <label class="form-label">Edit Your history</label>
                             <textarea class="form-control" name="story" rows="5">{{$hist->story}}</textarea>
                         </div>
+                        <div>
+                    <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
+                    </div>
+                        Please add up to five gallery photo
+                        <div>
+                            @include('front.gallery')
+                        </div>
                         <div class="mb-3" data-gallery="0">
                             <label class="form-label">Gallery photo <span class="rem">X</span></label>
                             <input type="file" class="form-control">
@@ -50,9 +57,8 @@
                         <button type="button" class="btn btn-secondary --add--gallery">add gallery photo</button>
 
                     </div>
-                        <button type="submit" class="btn btn-outline-danger m-1 ms-3" name="submit" value="1" form="hist_edit">Submit</button>
-                        <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
-                        <button type="submit" class="btn btn-outline-danger m-1" formaction="{{route('home')}}" formmethod="get">End of editing</button>
+                    <button type="submit" class="btn btn-outline-danger m-1 ms-3" name="submit" value="1" form="hist_edit">Submit</button>
+                    <button type="submit" class="btn btn-outline-danger m-1" formaction="{{route('home')}}" formmethod="get">End of editing</button>
                     @csrf
                     @method('put')
                 </form>

@@ -76,6 +76,7 @@ class FrontController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
+        $gallery = Photo::all(); 
         $hist = History::create([
             'user_id' => $user->id,
             'story' => "Here you can write your story up to 5000 characters or press AI button and AI help to You get hash tags and write history.",
@@ -86,16 +87,19 @@ class FrontController extends Controller
         return view('front.create', [
             'user' => $user,
             'hist' => $hist,
+            'gallery' => $gallery,
         ]);
     }
 
     public function edit(Request $request, History $history)
     {
         // dd($history->id);
+        $gallery = Photo::all(); 
         $user = $request->user();
         return view('front.create', [
             'user' => $user,
             'hist' => $history,
+            'gallery' => $gallery,
         ]);
     }
 
