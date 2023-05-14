@@ -42,8 +42,8 @@
                         <div>
                     <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
                     </div>
-                        Please add up to five gallery photo
-                        <div>
+                        Please add gallery photo
+                        <div class="gallery-edit overflow-scroll">
                             @include('front.gallery')
                         </div>
                         <div class="mb-3" data-gallery="0">
@@ -54,7 +54,7 @@
 
                         </div>
 
-                        <button type="button" class="btn btn-secondary --add--gallery">add gallery photo</button>
+                        <button type="button" class="btn btn-secondary --add--gallery mt-2">add gallery photo</button>
 
                     </div>
                     <button type="submit" class="btn btn-outline-danger m-1 ms-3" name="submit" value="1" form="hist_edit">Submit</button>
