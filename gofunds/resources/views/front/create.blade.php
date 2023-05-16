@@ -32,17 +32,6 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <!--                        
-                            <div class="ht-line">
-                                <div class="ht-element">
-                                    @foreach($tags as $tag)
-                                    <div class="tag">
-                                        {{$tag->text}}
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
--->
                             @include('front.tags')
                         </div>
                         <div class="mb-3">
@@ -50,7 +39,7 @@
                             <textarea class="form-control" name="story" rows="5">{{$hist->story}}</textarea>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
+                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="2">AI</button>
                         </div>
                         Please add gallery photo
                         <div class="gallery-edit overflow-scroll">

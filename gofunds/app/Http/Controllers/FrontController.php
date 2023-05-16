@@ -92,6 +92,7 @@ class FrontController extends Controller
 
     public function edit(Request $request, History $history)
     {
+        // dd($history);
         $gallery = Photo::where('hist_id', $history->id)->get();
         $ht_pivots = Ht_pivot::where('histories__id', $history->id)->get();
         $hist_arr = $ht_pivots->pluck('hts__id')->all();
@@ -109,14 +110,6 @@ class FrontController extends Controller
 
     public function update(Request $request, History $history)
     {
-        // dd(
-        //     $history,
-        //     $request->delete,  
-        //     $request->AI,  
-        //     $request->submit,  
-        //     $request->photo,  
-        //     $request->story,  
-        // );        
 
         if ($request->delete == 1) {
             $history->deletePhoto();
@@ -156,5 +149,133 @@ class FrontController extends Controller
         return redirect()->route('front-edit', $history);
     }
 
+    public function getTagsList(Request $request)
+    {
+        $tag = $request->t ?? '';
+
+        if ($tag) {
+            $tags = Ht::where('text', 'like', '%'.$tag.'%')
+            ->limit(5)
+            ->get();
+        } else {
+            $tags = [];
+        }
+        
+
+        $html = view('front.tag-search-list')->with(['tags' => $tags])->render();
+        
+        return response()->json([
+            'tags' => $html,
+        ]);
+
+    }
+
+    public function addNewTag(Request $request, History $history)
+    {
+        $hist = $history->id;
+        $title = $request->tag ?? '';
+        if (strlen($title) < 3) {
+            return response()->json([
+                'message' => 'Invalid tag title',
+                'status' => 'error'
+            ]);
+        }
+
+        $tag = Ht::where('text', $title)->first();
+
+        if (!$tag) {
+
+            $tag = Ht::create([
+                'text' => $title
+            ]);
+        }
+
+
+        $tagsId = $history->htp->pluck('hts__id')->all();
+        
+        if (in_array($tag->id, $tagsId)) {
+            return response()->json([
+                'message' => 'Tag exists',
+                'status' => 'error'
+            ]);
+        }
+        Ht_pivot::create([
+            'hts__id' => $tag->id,
+            'histories__id' => $hist,
+        ]);
+
+
+        return response()->json([
+            'message' => 'Tag added',
+            'status' => 'ok',
+            'tag' => $tag->title,
+            'id' => $hist,
+        ]);
+
+
+
+    }
+
+    public function deleteTag(Request $request, History $history)
+    {
+        $tagId = $request->tag ?? 0;
+
+        $tag = Ht::find($tagId);
+
+        if (!$tag) {
+            return response()->json([
+                'message' => 'Invalid tag id',
+                'status' => 'error'
+            ]);
+        }
+
+        $htp = Ht_pivot::where('histories__id', $history->id)
+        ->where('hts__id', $tag->id)->first();
+
+        $htp->delete();
+        return response()->json([
+            'message' => 'Tag removed',
+            'status' => 'ok',
+            'tag' => $tag->title,
+            'id' => $tag->id,
+        ]);
+
+    }
+
+    public function addTag(Request $request, History $history)
+    {
+        $tagId = $request->tag ?? 0;
+        $hist = $history->id;
+        $tag = Ht::find($tagId);
+
+        if (!$tag) {
+            return response()->json([
+                'message' => 'Invalid tag id',
+                'status' => 'error'
+            ]);
+        }
+
+        $tagsId = $history->Htp->pluck('tag_id')->all();
+        
+        if (in_array($tagId, $tagsId)) {
+            return response()->json([
+                'message' => 'Tag exists',
+                'status' => 'error'
+            ]);
+        }
+        Ht_pivot::create([
+            'hts__id' => $tagId,
+            'histories__id' => $hist
+        ]);
+
+
+        return response()->json([
+            'message' => 'Tag added',
+            'status' => 'ok',
+            'tag' => $tag->title,
+            'id' => $tag->id,
+        ]);
+
+    }
 
 }
