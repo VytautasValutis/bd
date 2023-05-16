@@ -43,6 +43,7 @@ if (document.querySelector('.--tags')) {
                     console.log(tagList.dataset.url)
                     axios.put(tagList.dataset.url, { tag: t.dataset.id })
                         .then(res => {
+                            console.log(res.data.tag)
                             if (res.data.status == 'ok') {
                                 insertTag(tagList, res);
                             }

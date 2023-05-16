@@ -208,7 +208,7 @@ class FrontController extends Controller
         return response()->json([
             'message' => 'Tag added',
             'status' => 'ok',
-            'tag' => $tag->title,
+            'tag' => $tag->text,
             'id' => $hist,
         ]);
 
@@ -236,7 +236,7 @@ class FrontController extends Controller
         return response()->json([
             'message' => 'Tag removed',
             'status' => 'ok',
-            'tag' => $tag->title,
+            'tag' => $tag->text,
             'id' => $tag->id,
         ]);
 
@@ -272,7 +272,7 @@ class FrontController extends Controller
         return response()->json([
             'message' => 'Tag added',
             'status' => 'ok',
-            'tag' => $tag->title,
+            'tag' => $tag->text,
             'id' => $tag->id,
         ]);
 
