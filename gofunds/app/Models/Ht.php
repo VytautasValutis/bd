@@ -8,20 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Ht extends Model
 {
     use HasFactory;
-    public $table = 'hts';
-    public $incrementing = false;
-    public $keyType = 'unsignedBigInteger';
-    protected $primaryKey = '_id';
 
-    // protected $fillable = [
-    //     "_id",
-    //     "username",
-    //     "password"
-    // ];
+    protected $fillable = ['text'];
 
-    public function history()
+
+    public function htp()
     {
-        return $this->belongsToMany(History::class, 'ht_pivots', 'histories__id', 'ht__id');
+        return $this->hasMany(Ht::class, 'ht_pivots', 'hts__id', 'id');
     }
 
 }

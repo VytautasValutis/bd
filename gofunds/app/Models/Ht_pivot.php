@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Ht_pivot extends Model
 {
     use HasFactory;
+    protected $fillable = ['histories__id', 'hts__id'];
 }

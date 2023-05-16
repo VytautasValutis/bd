@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/back/sass/app.scss', 'resources/back/js/app.js'])
+    @vite(['resources/front/sass/app.scss', 'resources/front/js/app.js'])
 </head>
 <body>
     <div id="app">
