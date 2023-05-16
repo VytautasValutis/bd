@@ -61,9 +61,10 @@ Route::prefix('front')->name('front-')->group(function() {
     Route::get('/edit/{history}', [FR::class, 'edit'])->name('edit');
     Route::put('/update/{history}', [FR::class, 'update'])->name('update');
     Route::get('/delete-photo', [FR::class, 'destroyPhoto'])->name('delete-photo');
-    // Route::get('/create', [HI::class, 'create'])->name('create');
-    // Route::post('/create', [HI::class, 'store'])->name('store');    
-    // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');
-    // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
-    // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
+    //
+    Route::get('/tags-list', [FR::class, 'getTagsList'])->name('tags-list');
+    Route::put('/add-tag/{history}', [FR::class, 'addTag'])->name('add-tag');
+    Route::put('/delete-tag/{history}', [FR::class, 'deleteTag'])->name('delete-tag');
+    Route::post('/add-new-tag/{history}', [FR::class, 'addNewTag'])->name('add-new-tag');
+
 });

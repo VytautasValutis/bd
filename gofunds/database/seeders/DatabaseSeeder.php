@@ -116,11 +116,13 @@ class DatabaseSeeder extends Seeder
                 $txt = DB::table('hts')->where('id', $tagArr[$k - 1])->get()->first()->text;
                 $tags_str = $tags_str . $txt . ' ';
             }
-
+/*
             $prompt = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:' . $tags_str;
             $max_tokens = 300; 
             $Ai_req = new AiController($prompt, $max_tokens);
             $story = $Ai_req->sendRequest();
+*/
+            $story = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:';
             DB::table('histories')->insert([
                 'user_id' => $t,
                 'story' => $story,

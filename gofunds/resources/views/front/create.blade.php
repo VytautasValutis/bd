@@ -32,15 +32,14 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            Select/change hash tags:
-                            {{-- @include('front.tags') --}}
+                            @include('front.tags')
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Edit Your history</label>
                             <textarea class="form-control" name="story" rows="5">{{$hist->story}}</textarea>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="1">AI</button>
+                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="2">AI</button>
                         </div>
                         Please add gallery photo
                         <div class="gallery-edit overflow-scroll">
