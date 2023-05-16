@@ -3,64 +3,90 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ht;
-use App\Http\Requests\StoreHtRequest;
-use App\Http\Requests\UpdateHtRequest;
+use Illuminate\Http\Request;
 
 class HtController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('back.tags.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function list()
     {
-        //
+        // sleep(3);
+        $tags = HT::all();
+        $html = view('back.tags.list')->with(['tags' => $tags])->render();
+        return response()->json([
+            'html' => $html,
+            'status' => 'ok',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreHtRequest $request)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ht $ht)
+    public function create(Request $request)
     {
-        //
+        $title = $request->title ?? '';
+        $tag = Ht::where('text', $title)->first();
+
+        if (!$tag && $title) {
+            $tag = Ht::create([
+                'text' => $title
+            ]);
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'New tag #'.$title.' was created'
+            ]);
+        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Tag already exists or empty.'
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ht $ht)
+
+    public function showModal(Tag $tag)
     {
-        //
+        $html = view('back.tags.modal')->with(['tag' => $tag])->render();
+        return response()->json([
+            'html' => $html,
+            'status' => 'ok',
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateHtRequest $request, Ht $ht)
+
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $title = $request->title ?? '';
+        $OldTag = Ht::where('text', $title)->first();
+
+        if ($OldTag && $OldTag->id == $tag->id) {
+            return response()->json([
+                'status' => 'info',
+                'message' => 'Tag was not updated'
+            ]);
+        }
+
+        if (!$OldTag && $title) {
+            $tag->update([
+                'text' => $title
+            ]);
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'Now tag is #'.$title
+            ]);
+        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Tag already exists or empty.'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ht $ht)
-    {
-        //
-    }
 }
