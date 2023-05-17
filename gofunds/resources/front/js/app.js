@@ -58,8 +58,10 @@ if (document.querySelector('.--tags')) {
                 const bb = addDom.querySelector('.--newtag');
                 axios.post(bb.dataset.url, { tag: i.value })
                     .then(res => {
-                        insertTag(addDom.querySelector('.--tags--list'), res);
-                        console.log(res.data);
+                        if(res.data.status == 'ok') {
+                            insertTag(addDom.querySelector('.--tags--list'), res);
+                            console.log(res.data);
+                        }
                     });
         })
 
@@ -69,8 +71,8 @@ if (document.querySelector('.--tags')) {
             i.addEventListener('input', e => {
                 axios.get(e.target.dataset.url + '?t=' + e.target.value)
                     .then(res => {
-                        i.closest('.--add').querySelector('.--tags--list').innerHTML = res.data.tags;
-                        initTagList(i.closest('.--add').querySelector('.--tags--list'));
+                            i.closest('.--add').querySelector('.--tags--list').innerHTML = res.data.tags;
+                            initTagList(i.closest('.--add').querySelector('.--tags--list'));
                     });
             });
             i.addEventListener('focus', e => {

@@ -112,7 +112,24 @@ class FrontController extends Controller
 
     public function update(Request $request, History $history)
     {
-
+        function putRandHT($count) : string
+        {
+            $rez = [];
+            $str = ' ';
+            $tags = Ht::all();
+            foreach (range(1, $count) as $i) {
+                $tag = $tags->random();
+                $num = $tag->id;
+                while(in_array($num, $rez)){
+                    $tag = tags->random();
+                    $num = $tag->id;
+                };
+                $rez[] = $num;
+                $str = $str . $tag->text . ' ';
+            }
+            return $str;
+        }
+    
         if ($request->delete == 1) {
             $history->deletePhoto();
             return redirect()->back();
@@ -126,10 +143,16 @@ class FrontController extends Controller
             foreach($hts as $ht) {
                 $tags_str = $tags_str . $ht->text . ' ';
             }
+            if($tags_str == ' ') {
+                $HtAll = Ht::all();
+                $HtAllArr = $HtAll->pluck('id')->all();
+                $tag_count = rand(3, 5);
+                $tags_str = putRandHT($tag_count);
+            }
             $prompt = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:' . $tags_str;
             $max_tokens = 300; 
             $Ai_req = new AiController($prompt, $max_tokens);
-            $story = $Ai_req->sendRequest();
+            $story = $Ai_req->sendRequest() . '>>> tags (if Your need): ' . $tags_str . ' <<<';
 
             $history->update([
                 'story' => $story,

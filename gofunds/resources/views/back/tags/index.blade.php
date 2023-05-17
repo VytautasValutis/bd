@@ -10,13 +10,13 @@
                 </div>
                 <div class="card-body">
                     <form action="{{route('tags-create')}}" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Tag</label>
-                        <input type="text" class="form-control" name="title">
-                        <div class="form-text">Please add history tag here</div>
-                    </div>
-                    <button type="submit" class="mt-1 btn btn-outline-primary">Add</button>
-                    @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Tag</label>
+                            <input type="text" class="form-control" name="title">
+                            <div class="form-text">Please add history tag here</div>
+                        </div>
+                        <button type="submit" class="mt-1 btn btn-outline-primary">Add</button>
+                        @csrf
                     </form>
                     <a class="mt-1 btn btn-outline-primary" href="{{route('history-index')}}">Return to history list</a>
                 </div>
@@ -30,23 +30,11 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group --tags--list" data-url="{{route('tags-list')}}">
-                    @include('back.tags.list')
+                        @include('back.tags.list')
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="loader">
-    <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>
-<div class="--modal--bin"></div>
-<div class="--messages--bin messages-container">
-@include('layouts.js-messages')
 </div>
 @endsection

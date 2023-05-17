@@ -2,7 +2,7 @@
 <li class="list-group-item">
     <div class="cat-line">
         <div class="cat-info">
-        <form action="{{route('tags-show-modal', $tag)}}" method="post">
+        <form action="{{route('tags-update', $tag)}}" method="post">
         <input type="text" value="{{$tag->text}}" name="title">
         </div>
         <div class="buttons">
