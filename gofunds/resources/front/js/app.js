@@ -110,4 +110,17 @@ if (document.querySelector('.--add--gallery')) {
         });
 }
 
+if (document.querySelector('.--create--history')) {
+    const histDom = document.querySelector('.--create--history');
+    const loader = document.querySelector('.loader');
+    const showLoader = _ => loader.style.display = 'flex';
+    const hideLoader = _ => loader.style.display = 'none';
+    histDom.querySelector('.--ai--button')
+        .addEventListener('click', _ => {
+            showLoader();
+        });
+    histDom.addEventListener('load', _ => {
+        hideLoader();
+    });
+}
 
