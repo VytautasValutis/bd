@@ -56,6 +56,18 @@ Route::prefix('like')->name('like-')->group(function() {
     // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
 });
 
+Route::prefix('tags')->name('tags-')->group(function () {
+    Route::get('/', [T::class, 'index'])->name('index');
+    Route::get('/list', [T::class, 'list'])->name('list');
+
+    Route::post('/create', [T::class, 'create'])->name('create');
+
+    Route::get('/show-modal/{ht}', [T::class, 'showModal'])->name('show-modal');
+    Route::put('/update/{ht}', [T::class, 'update'])->name('update');
+
+    Route::delete('/deleteHt/{ht}', [T::class, 'destroyHt'])->name('deleteHt');
+});
+
 Route::prefix('front')->name('front-')->group(function() {
     Route::get('/', [FR::class, 'index'])->name('index');
     Route::get('/create', [FR::class, 'create'])->name('create');
@@ -68,15 +80,4 @@ Route::prefix('front')->name('front-')->group(function() {
     Route::put('/delete-tag/{history}', [FR::class, 'deleteTag'])->name('delete-tag');
     Route::post('/add-new-tag/{history}', [FR::class, 'addNewTag'])->name('add-new-tag');
 
-});
-Route::prefix('tags')->name('tags-')->group(function () {
-    Route::get('/', [T::class, 'index'])->name('index');
-    Route::get('/list', [T::class, 'list'])->name('list');
-
-    Route::post('/create', [T::class, 'create'])->name('create');
-
-    Route::get('/show-modal/{tag}', [T::class, 'showModal'])->name('show-modal');
-    Route::put('/update/{tag}', [T::class, 'update'])->name('update');
-
-    Route::delete('/delete/{tag}', [T::class, 'destroy'])->name('delete');
 });

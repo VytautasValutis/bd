@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Ht;
 use Illuminate\Http\Request;
 
+
 class HtController extends Controller
 {
     public function index()
-    {
-        return view('back.tags.index');
+    {   
+        $tags = Ht::where('id', '>', '0')->orderBy('text')->get();
+        return view('back.tags.index', [
+            'tags' => $tags,
+        ]);
     }
 
     public function list()
@@ -23,70 +27,43 @@ class HtController extends Controller
         ]);
     }
 
-    public function destroy(Tag $tag)
+    public function destroyHt(Request $request, Ht $ht)
     {
-        $tag->delete();
-        return response()->json([
-            'status' => 'ok',
-        ]);
+        
+        $ht->delete();
+        return redirect()->route('tags-index');
     }
 
     public function create(Request $request)
     {
         $title = $request->title ?? '';
-        $tag = Ht::where('text', $title)->first();
+        $ht = Ht::where('text', $title)->first();
 
-        if (!$tag && $title) {
-            $tag = Ht::create([
+        if (!$ht && $title) {
+            $ht = Ht::create([
                 'text' => $title
             ]);
-            return response()->json([
-                'status' => 'ok',
-                'message' => 'New tag #'.$title.' was created'
-            ]);
+            return redirect()->route('tags-index');
         }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Tag already exists or empty.'
-        ]);
+        return redirect()->route('tags-index');
+        // return response()->json([
+        //     'status' => 'error',
+        //     'message' => 'Tag already exists or empty.'
+        // ]);
     }
 
 
-    public function showModal(Tag $tag)
+    public function showModal(Ht $ht)
     {
-        $html = view('back.tags.modal')->with(['tag' => $tag])->render();
-        return response()->json([
-            'html' => $html,
-            'status' => 'ok',
-        ]);
+        return view('back.tags.modal', [
+            'ht' => $ht
+            ]);
+
     }
 
 
     public function update(Request $request, Tag $tag)
     {
-        $title = $request->title ?? '';
-        $OldTag = Ht::where('text', $title)->first();
-
-        if ($OldTag && $OldTag->id == $tag->id) {
-            return response()->json([
-                'status' => 'info',
-                'message' => 'Tag was not updated'
-            ]);
-        }
-
-        if (!$OldTag && $title) {
-            $tag->update([
-                'text' => $title
-            ]);
-            return response()->json([
-                'status' => 'ok',
-                'message' => 'Now tag is #'.$title
-            ]);
-        }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Tag already exists or empty.'
-        ]);
     }
 
 }
