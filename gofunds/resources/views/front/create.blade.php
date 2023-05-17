@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container --create--history">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card mt-3">
@@ -39,7 +39,7 @@
                             <textarea class="form-control" name="story" rows="5">{{$hist->story}}</textarea>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-outline-danger m-1" name="ai" value="2">AI</button>
+                            <button type="submit" class="btn btn-outline-danger m-1 --ai--button" name="ai" value="2">AI</button>
                         </div>
                         Please add gallery photo
                         <div class="gallery-edit overflow-scroll">
@@ -72,5 +72,14 @@
             </div>
         </div>
     </div>
+    <div class="loader">
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
 </div>
 @endsection

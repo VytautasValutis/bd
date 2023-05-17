@@ -18,20 +18,16 @@ class HtController extends Controller
 
     public function list()
     {
-        // sleep(3);
-        $tags = HT::all();
-        $html = view('back.tags.list')->with(['tags' => $tags])->render();
-        return response()->json([
-            'html' => $html,
-            'status' => 'ok',
-        ]);
     }
 
     public function destroyHt(Request $request, Ht $ht)
     {
-        
+        $text = $ht->text;
         $ht->delete();
-        return redirect()->route('tags-index');
+        return redirect()
+        ->route('tags-index')
+        ->with('ok', 'Hash-tag ' . $text . ' was deleted');
+
     }
 
     public function create(Request $request)
@@ -43,26 +39,35 @@ class HtController extends Controller
             $ht = Ht::create([
                 'text' => $title
             ]);
-            return redirect()->route('tags-index');
+            return redirect()
+            ->route('tags-index')
+            ->with('ok', 'Hash-tag ' . $title . ' was created');
+    
         }
-        return redirect()->route('tags-index');
-        // return response()->json([
-        //     'status' => 'error',
-        //     'message' => 'Tag already exists or empty.'
-        // ]);
+        return redirect()
+        ->route('tags-index')
+        ->withErrors('Hash-tag empty or exists');
+
     }
 
 
-    public function showModal(Ht $ht)
+    public function update(Request $request, Ht $ht)
     {
-        return view('back.tags.modal', [
-            'ht' => $ht
-            ]);
+        $title = $request->title ?? '';
+        if($title == '') {
+            return redirect()->back();
+        }
+        $ht->update([
+            'text' => $title,
+        ]);
+        return redirect()
+        ->route('tags-index')
+        ->with('ok', 'Hash-tag ' . $title . ' was updated');
 
     }
 
 
-    public function update(Request $request, Tag $tag)
+    public function showModal(Request $request, Tag $tag)
     {
     }
 

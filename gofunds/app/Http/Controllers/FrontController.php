@@ -11,6 +11,8 @@ use App\Models\Ht_pivot;
 use App\Models\Ht;
 use App\Models\Photo;
 use Illuminate\Support\Facades\URL;
+use App\Entities\AiController;
+use File;
 
 
 class FrontController extends Controller
@@ -110,9 +112,51 @@ class FrontController extends Controller
 
     public function update(Request $request, History $history)
     {
-
+        function putRandHT($count) : string
+        {
+            $rez = [];
+            $str = ' ';
+            $tags = Ht::all();
+            foreach (range(1, $count) as $i) {
+                $tag = $tags->random();
+                $num = $tag->id;
+                while(in_array($num, $rez)){
+                    $tag = tags->random();
+                    $num = $tag->id;
+                };
+                $rez[] = $num;
+                $str = $str . $tag->text . ' ';
+            }
+            return $str;
+        }
+    
         if ($request->delete == 1) {
             $history->deletePhoto();
+            return redirect()->back();
+        }
+
+        if($request->ai == 2) {
+            $ht_pivots = Ht_pivot::where('histories__id', $history->id)->get();
+            $hist_arr = $ht_pivots->pluck('hts__id')->all();
+            $hts = Ht::whereIn('id', $hist_arr)->get();
+            $tags_str = ' ';
+            foreach($hts as $ht) {
+                $tags_str = $tags_str . $ht->text . ' ';
+            }
+            if($tags_str == ' ') {
+                $HtAll = Ht::all();
+                $HtAllArr = $HtAll->pluck('id')->all();
+                $tag_count = rand(3, 5);
+                $tags_str = putRandHT($tag_count);
+            }
+            $prompt = 'a sad story in up to one hundred and twenty words tranlate in lithuanian using words:' . $tags_str;
+            $max_tokens = 300; 
+            $Ai_req = new AiController($prompt, $max_tokens);
+            $story = $Ai_req->sendRequest() . '>>> tags (if Your need): ' . $tags_str . ' <<<';
+
+            $history->update([
+                'story' => $story,
+            ]);
             return redirect()->back();
         }
 
