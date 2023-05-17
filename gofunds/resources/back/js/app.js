@@ -18,3 +18,4 @@ if (document.querySelector('.--add--gallery')) {
             document.querySelector('.gallery-inputs').append(input);
         });
 }
+

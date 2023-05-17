@@ -35,8 +35,8 @@
                             <form action="{{route('history-index')}}" method="get">
                                 <div class="container">
                                     <div class="row justify-content-left">
-                                        <div class="col-8 m-1">
                                         @if(isset($hts))
+                                        <div class="col-8 m-1">
                                             <select class="form-select" name="hash_tags">
                                                 <option value="0" selected>Hash-tag select</option>
                                                 @foreach($hts as $k => $ht)
@@ -47,18 +47,18 @@
                                         <div class="col-3 m-1">
                                             <button type="submit" class="btn btn-outline-primary">Filter</button>
                                         </div>
-                                        @endif    
+                                        @endif
                                     </div>
                                 </div>
                             </form>
                         </li>
                         <li class="nav-item">
+                            @if(isset($hts))
                             <div>
-                                <a href="" class="btn btn-outline-info mt-1">Edit #</a>
+                                <a href="{{ route('tags-index') }}" class="btn btn-outline-info mt-1">Edit #</a>
                             </div>
+                            @endif
                         </li>
-
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
