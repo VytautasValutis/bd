@@ -3,64 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ht;
-use App\Http\Requests\StoreHtRequest;
-use App\Http\Requests\UpdateHtRequest;
+use Illuminate\Http\Request;
+
 
 class HtController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-    {
-        //
+    {   
+        $tags = Ht::where('id', '>', '0')->orderBy('text')->get();
+        return view('back.tags.index', [
+            'tags' => $tags,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function list()
     {
-        //
+        // sleep(3);
+        $tags = HT::all();
+        $html = view('back.tags.list')->with(['tags' => $tags])->render();
+        return response()->json([
+            'html' => $html,
+            'status' => 'ok',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreHtRequest $request)
+    public function destroyHt(Request $request, Ht $ht)
     {
-        //
+        
+        $ht->delete();
+        return redirect()->route('tags-index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ht $ht)
+    public function create(Request $request)
     {
-        //
+        $title = $request->title ?? '';
+        $ht = Ht::where('text', $title)->first();
+
+        if (!$ht && $title) {
+            $ht = Ht::create([
+                'text' => $title
+            ]);
+            return redirect()->route('tags-index');
+        }
+        return redirect()->route('tags-index');
+        // return response()->json([
+        //     'status' => 'error',
+        //     'message' => 'Tag already exists or empty.'
+        // ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ht $ht)
+
+    public function showModal(Ht $ht)
     {
-        //
+        return view('back.tags.modal', [
+            'ht' => $ht
+            ]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateHtRequest $request, Ht $ht)
+
+    public function update(Request $request, Tag $tag)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ht $ht)
-    {
-        //
-    }
 }

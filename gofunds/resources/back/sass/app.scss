@@ -137,3 +137,33 @@ div.story {
   [data-gallery="0"] {
     display: none;
 }
+
+.messages-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 100;
+  .alert {
+      display: none;
+  }
+}
+
+.cat-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  .cat-info {
+      display: flex;
+      justify-content: space-around;
+      font-size: 24px;
+  }
+  .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+  }
+}

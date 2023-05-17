@@ -5,6 +5,7 @@ use App\Http\Controllers\HistoryController as HI;
 use App\Http\Controllers\MoneyController as MO;
 use App\Http\Controllers\LikeController as LK;
 use App\Http\Controllers\FrontController as FR;
+use App\Http\Controllers\HtController as T;
 
 
 /*
@@ -53,6 +54,18 @@ Route::prefix('like')->name('like-')->group(function() {
     // Route::get('/edit/{client}', [HI::class, 'edit'])->name('edit');
     // Route::put('/edit/{client}', [HI::class, 'update'])->name('update');
     // Route::delete('/delete/{client}', [HI::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('tags')->name('tags-')->group(function () {
+    Route::get('/', [T::class, 'index'])->name('index');
+    Route::get('/list', [T::class, 'list'])->name('list');
+
+    Route::post('/create', [T::class, 'create'])->name('create');
+
+    Route::get('/show-modal/{ht}', [T::class, 'showModal'])->name('show-modal');
+    Route::put('/update/{ht}', [T::class, 'update'])->name('update');
+
+    Route::delete('/deleteHt/{ht}', [T::class, 'destroyHt'])->name('deleteHt');
 });
 
 Route::prefix('front')->name('front-')->group(function() {
